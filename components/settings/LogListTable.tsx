@@ -7,15 +7,18 @@ import { DataTableToolbar } from '@/components/composed/DataTableToolbar';
 import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDateTime } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { ActivityLog, PaginatedResponse } from '@/types';
 
+const texts = uiData.settings.logs;
+
 const columns: ColumnDef<ActivityLog>[] = [
-  { accessorKey: 'adminName', header: '관리자' },
-  { accessorKey: 'action', header: '동작' },
-  { accessorKey: 'targetType', header: '대상' },
-  { accessorKey: 'targetId', header: 'ID' },
-  { accessorKey: 'details', header: '상세', cell: ({ row }) => <span className="max-w-[200px] truncate block">{row.getValue('details') ?? '-'}</span> },
-  { accessorKey: 'createdAt', header: '일시', cell: ({ row }) => formatDateTime(row.getValue('createdAt')) },
+  { accessorKey: 'adminName', header: texts.columns.adminName },
+  { accessorKey: 'action', header: texts.columns.action },
+  { accessorKey: 'targetType', header: texts.columns.targetType },
+  { accessorKey: 'targetId', header: texts.columns.targetId },
+  { accessorKey: 'details', header: texts.columns.details, cell: ({ row }) => <span className="max-w-[200px] truncate block">{row.getValue('details') ?? '-'}</span> },
+  { accessorKey: 'createdAt', header: texts.columns.createdAt, cell: ({ row }) => formatDateTime(row.getValue('createdAt')) },
 ];
 
 const mockLogs: ActivityLog[] = [
@@ -37,7 +40,7 @@ export function LogListTable() {
 
   return (
     <div>
-      <DataTableToolbar searchValue={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder="관리자명 또는 동작으로 검색" />
+      <DataTableToolbar searchValue={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder={texts.searchPlaceholder} />
       <DataTable columns={columns} data={data} pageCount={pageCount} pagination={{ pageIndex: page, pageSize }} onPaginationChange={(updater) => { if (typeof updater === 'function') { const next = updater({ pageIndex: page, pageSize }); setPage(next.pageIndex); } }} sorting={sorting} onSortingChange={(updater) => { const next = typeof updater === 'function' ? updater(sorting) : updater; setSorting(next); }} isLoading={isLoading} />
       <DataTablePagination page={page} pageSize={pageSize} pageCount={pageCount} totalElements={totalElements} onPageChange={setPage} onPageSizeChange={setPageSize} />
     </div>

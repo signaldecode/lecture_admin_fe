@@ -21,18 +21,25 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import uiData from '@/data/uiData.json';
 import type { Course } from '@/types';
 
+const texts = uiData.courses;
+const formTexts = texts.form;
+const validationTexts = texts.validation;
+const commonTexts = uiData.common;
+const difficultyLabels = texts.difficultyLabels;
+
 const courseSchema = z.object({
-  title: z.string().min(1, '강의명을 입력해주세요.'),
-  description: z.string().min(1, '강의 설명을 입력해주세요.'),
-  categoryId: z.string().min(1, '카테고리를 선택해주세요.'),
+  title: z.string().min(1, validationTexts.titleRequired),
+  description: z.string().min(1, validationTexts.descriptionRequired),
+  categoryId: z.string().min(1, validationTexts.categoryRequired),
   difficulty: z.enum(['BEGINNER', 'INTERMEDIATE', 'ADVANCED'], {
-    error: '난이도를 선택해주세요.',
+    error: validationTexts.difficultyRequired,
   }),
   price: z.string().refine(
     (val) => !isNaN(Number(val)) && Number(val) >= 0,
-    '가격은 0 이상의 숫자여야 합니다.',
+    validationTexts.priceInvalid,
   ),
 });
 
@@ -63,15 +70,13 @@ export function CourseForm({ course, mode }: CourseFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<CourseFormValues>({
     resolver: zodResolver(courseSchema),
-    defaultValues: course
-      ? {
-          title: course.title,
-          description: course.description,
-          categoryId: String(course.categoryId),
-          difficulty: course.difficulty,
-          price: String(course.price),
-        }
-      : undefined,
+    defaultValues: {
+      title: course?.title ?? '',
+      description: course?.description ?? '',
+      categoryId: course ? String(course.categoryId) : '',
+      difficulty: course?.difficulty ?? '' as CourseFormValues['difficulty'],
+      price: course ? String(course.price) : '',
+    },
   });
 
   async function onSubmit(values: CourseFormValues) {
@@ -87,15 +92,15 @@ export function CourseForm({ course, mode }: CourseFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{isEdit ? '강의 수정' : '강의 등록'}</CardTitle>
+        <CardTitle>{isEdit ? formTexts.editTitle : formTexts.createTitle}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="title">강의명</Label>
+            <Label htmlFor="title">{formTexts.titleLabel}</Label>
             <Input
               id="title"
-              placeholder="강의명을 입력하세요"
+              placeholder={formTexts.titlePlaceholder}
               {...register('title')}
             />
             {errors.title && (
@@ -104,11 +109,12 @@ export function CourseForm({ course, mode }: CourseFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">강의 설명</Label>
+            <Label htmlFor="description">{formTexts.descriptionLabel}</Label>
             <Textarea
               id="description"
-              placeholder="강의에 대한 설명을 입력하세요"
+              placeholder={formTexts.descriptionPlaceholder}
               rows={5}
+              className='resize-none'
               {...register('description')}
             />
             {errors.description && (
@@ -118,13 +124,13 @@ export function CourseForm({ course, mode }: CourseFormProps) {
 
           <div className="grid gap-4 sm:grid-cols-3">
             <div className="space-y-2">
-              <Label htmlFor="categoryId">카테고리</Label>
+              <Label htmlFor="categoryId">{formTexts.categoryLabel}</Label>
               <Select
-                value={watch('categoryId')}
+                value={watch('categoryId') ?? ''}
                 onValueChange={(v) => setValue('categoryId', v ?? '')}
               >
                 <SelectTrigger id="categoryId">
-                  <SelectValue placeholder="카테고리 선택" />
+                  <SelectValue placeholder={formTexts.categoryPlaceholder} />
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map((cat) => (
@@ -140,20 +146,20 @@ export function CourseForm({ course, mode }: CourseFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="difficulty">난이도</Label>
+              <Label htmlFor="difficulty">{formTexts.difficultyLabel}</Label>
               <Select
-                value={watch('difficulty')}
+                value={watch('difficulty') ?? ''}
                 onValueChange={(v) =>
                   setValue('difficulty', (v ?? 'BEGINNER') as CourseFormValues['difficulty'])
                 }
               >
                 <SelectTrigger id="difficulty">
-                  <SelectValue placeholder="난이도 선택" />
+                  <SelectValue placeholder={formTexts.difficultyPlaceholder} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="BEGINNER">입문</SelectItem>
-                  <SelectItem value="INTERMEDIATE">중급</SelectItem>
-                  <SelectItem value="ADVANCED">고급</SelectItem>
+                  <SelectItem value="BEGINNER">{difficultyLabels.BEGINNER}</SelectItem>
+                  <SelectItem value="INTERMEDIATE">{difficultyLabels.INTERMEDIATE}</SelectItem>
+                  <SelectItem value="ADVANCED">{difficultyLabels.ADVANCED}</SelectItem>
                 </SelectContent>
               </Select>
               {errors.difficulty && (
@@ -162,11 +168,11 @@ export function CourseForm({ course, mode }: CourseFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="price">가격 (원)</Label>
+              <Label htmlFor="price">{formTexts.priceLabel}</Label>
               <Input
                 id="price"
                 type="number"
-                placeholder="0"
+                placeholder={formTexts.pricePlaceholder}
                 {...register('price')}
               />
               {errors.price && (
@@ -177,14 +183,14 @@ export function CourseForm({ course, mode }: CourseFormProps) {
 
           <div className="flex gap-2">
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? '저장 중...' : isEdit ? '수정' : '등록'}
+              {isSubmitting ? formTexts.submittingButton : isEdit ? formTexts.submitEditButton : formTexts.submitCreateButton}
             </Button>
             <Button
               type="button"
               variant="outline"
               onClick={() => router.back()}
             >
-              취소
+              {commonTexts.cancel}
             </Button>
           </div>
         </form>

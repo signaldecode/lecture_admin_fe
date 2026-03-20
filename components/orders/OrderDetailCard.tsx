@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { StatusBadge } from '@/components/composed/StatusBadge';
+import { RefundProcessModal } from '@/components/orders/RefundProcessModal';
 import { formatCurrency, formatDateTime } from '@/lib/format';
 import type { Order, OrderStatus } from '@/types';
 import uiData from '@/data/uiData.json';
@@ -24,15 +26,7 @@ const statusVariantMap: Record<OrderStatus, 'success' | 'secondary' | 'warning' 
 };
 
 export function OrderDetailCard({ order }: OrderDetailCardProps) {
-  const handleApproveRefund = () => {
-    // TODO: Call refund approval API
-    console.log('Refund approved for order:', order.id);
-  };
-
-  const handleRejectRefund = () => {
-    // TODO: Call refund rejection API
-    console.log('Refund rejected for order:', order.id);
-  };
+  const [refundModalOpen, setRefundModalOpen] = useState(false);
 
   return (
     <div className="space-y-6">
@@ -94,16 +88,21 @@ export function OrderDetailCard({ order }: OrderDetailCardProps) {
             </p>
             <Separator />
             <div className="flex gap-2">
-              <Button onClick={handleApproveRefund}>
+              <Button onClick={() => setRefundModalOpen(true)}>
                 {detailTexts.approveRefund}
-              </Button>
-              <Button variant="outline" onClick={handleRejectRefund}>
-                {detailTexts.rejectRefund}
               </Button>
             </div>
           </CardContent>
         </Card>
       )}
+
+      <RefundProcessModal
+        orderId={order.id}
+        courseTitle={order.courseTitle}
+        amount={order.amount}
+        open={refundModalOpen}
+        onOpenChange={setRefundModalOpen}
+      />
     </div>
   );
 }

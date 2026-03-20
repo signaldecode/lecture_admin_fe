@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/table';
 import { formatRelativeDate } from '@/lib/format';
 import dashboardData from '@/data/dashboardData.json';
+import uiData from '@/data/uiData.json';
 
 interface QnaItem {
   id: number;
@@ -31,6 +32,8 @@ interface RecentQnaTableProps {
   items: QnaItem[];
 }
 
+const columnTexts = uiData.dashboard.recentQnaColumns;
+const qnaStatusLabels = uiData.dashboard.recentQnaStatusLabels;
 const texts = dashboardData.tables.recentQna;
 
 export function RecentQnaTable({ items }: RecentQnaTableProps) {
@@ -49,11 +52,11 @@ export function RecentQnaTable({ items }: RecentQnaTableProps) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>강의</TableHead>
-              <TableHead>질문</TableHead>
-              <TableHead>수강생</TableHead>
-              <TableHead>답변</TableHead>
-              <TableHead>등록일</TableHead>
+              <TableHead>{columnTexts.courseTitle}</TableHead>
+              <TableHead>{columnTexts.question}</TableHead>
+              <TableHead>{columnTexts.studentName}</TableHead>
+              <TableHead>{columnTexts.answer}</TableHead>
+              <TableHead>{columnTexts.createdAt}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -74,7 +77,7 @@ export function RecentQnaTable({ items }: RecentQnaTableProps) {
                         : 'text-yellow-600 font-medium'
                     }
                   >
-                    {item.isAnswered ? '완료' : '대기'}
+                    {item.isAnswered ? qnaStatusLabels.answered : qnaStatusLabels.pending}
                   </span>
                 </TableCell>
                 <TableCell>{formatRelativeDate(item.createdAt)}</TableCell>

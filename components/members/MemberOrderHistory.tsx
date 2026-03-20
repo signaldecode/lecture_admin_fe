@@ -5,6 +5,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { formatCurrency, formatDate } from '@/lib/format';
 import type { OrderStatus } from '@/types';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.members.orderHistory;
 
 interface OrderHistoryItem {
   orderId: number;
@@ -18,7 +21,7 @@ interface MemberOrderHistoryProps {
   memberId: number;
 }
 
-const statusLabel: Record<OrderStatus, string> = { COMPLETED: '결제완료', CANCELLED: '취소', REFUND_REQUESTED: '환불요청', REFUNDED: '환불완료' };
+const statusLabel = uiData.orders.statusLabels as Record<OrderStatus, string>;
 const statusVariant: Record<OrderStatus, 'success' | 'secondary' | 'warning' | 'destructive'> = { COMPLETED: 'success', CANCELLED: 'secondary', REFUND_REQUESTED: 'warning', REFUNDED: 'destructive' };
 
 const mockOrders: OrderHistoryItem[] = [
@@ -33,17 +36,17 @@ export function MemberOrderHistory({ memberId }: MemberOrderHistoryProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">주문 이력</CardTitle>
+        <CardTitle className="text-base">{texts.title}</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>주문번호</TableHead>
-              <TableHead>강의명</TableHead>
-              <TableHead>금액</TableHead>
-              <TableHead>상태</TableHead>
-              <TableHead>결제일</TableHead>
+              <TableHead>{texts.columns.orderId}</TableHead>
+              <TableHead>{texts.columns.courseTitle}</TableHead>
+              <TableHead>{texts.columns.amount}</TableHead>
+              <TableHead>{texts.columns.status}</TableHead>
+              <TableHead>{texts.columns.createdAt}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

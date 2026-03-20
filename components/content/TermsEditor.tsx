@@ -7,17 +7,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { formatDate } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { Terms } from '@/types';
+
+const texts = uiData.content.terms;
+const commonTexts = uiData.common;
 
 const mockTerms: Terms[] = [
   { id: 1, type: 'TERMS_OF_SERVICE', version: 'v2.1', content: '제1조 (목적)\n이 약관은 LMS 플랫폼이 제공하는 서비스의 이용 조건 및 절차에 관한 사항을 규정함을 목적으로 합니다.\n\n제2조 (정의)\n1. "서비스"란 회사가 제공하는 온라인 강의 플랫폼을 말합니다.\n2. "회원"이란 서비스에 가입하여 이용하는 자를 말합니다.', effectiveDate: '2026-01-01T00:00:00', createdAt: '2025-12-15T00:00:00' },
   { id: 2, type: 'PRIVACY_POLICY', version: 'v1.3', content: '1. 수집하는 개인정보 항목\n- 이메일, 이름, 전화번호, 결제 정보\n\n2. 개인정보의 수집 및 이용 목적\n- 서비스 제공, 회원 관리, 마케팅 활용', effectiveDate: '2026-02-01T00:00:00', createdAt: '2026-01-20T00:00:00' },
 ];
 
-const typeLabels: Record<string, string> = {
-  TERMS_OF_SERVICE: '이용약관',
-  PRIVACY_POLICY: '개인정보처리방침',
-};
+const typeLabels = texts.typeLabels as Record<string, string>;
 
 export function TermsEditor() {
   const [activeTab, setActiveTab] = useState('TERMS_OF_SERVICE');
@@ -50,7 +51,7 @@ export function TermsEditor() {
               <div className="flex items-center gap-2">
                 <StatusBadge label={terms.version} variant="default" />
                 <span className="text-sm text-muted-foreground">
-                  시행일: {formatDate(terms.effectiveDate)}
+                  {texts.effectiveDateLabel + ':'} {formatDate(terms.effectiveDate)}
                 </span>
               </div>
             </CardHeader>
@@ -61,9 +62,9 @@ export function TermsEditor() {
                   setContents((prev) => ({ ...prev, [terms.type]: e.target.value }))
                 }
                 rows={20}
-                className="font-mono text-sm"
+                className="font-mono text-sm resize-none"
               />
-              <Button onClick={handleSave}>저장</Button>
+              <Button onClick={handleSave}>{commonTexts.save}</Button>
             </CardContent>
           </Card>
         </TabsContent>

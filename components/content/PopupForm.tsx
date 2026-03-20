@@ -82,6 +82,7 @@ export function PopupForm({ popup, mode }: PopupFormProps) {
             <Label htmlFor="popup-content">{popupTexts.contentLabel}</Label>
             <Textarea
               id="popup-content"
+              className='resize-none'
               placeholder={popupTexts.contentPlaceholder}
               rows={6}
               {...register('content')}

@@ -2,37 +2,40 @@
 
 import type { ColumnDef } from '@tanstack/react-table';
 import { formatDate, formatPercent } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { InstructorStudent } from '@/types';
+
+const texts = uiData.instructor.students;
 
 export const studentColumns: ColumnDef<InstructorStudent>[] = [
   {
     accessorKey: 'studentName',
-    header: '수강생',
+    header: texts.columns.studentName,
     cell: ({ row }) => (
       <span className="font-medium">{row.getValue('studentName')}</span>
     ),
   },
   {
     accessorKey: 'email',
-    header: '이메일',
+    header: texts.columns.email,
   },
   {
     accessorKey: 'courseTitle',
-    header: '수강 강의',
+    header: texts.columns.courseTitle,
   },
   {
     accessorKey: 'progressRate',
-    header: '진도율',
+    header: texts.columns.progressRate,
     cell: ({ row }) => formatPercent(row.getValue('progressRate')),
   },
   {
     accessorKey: 'completionRate',
-    header: '완료율',
+    header: texts.columns.completionRate,
     cell: ({ row }) => formatPercent(row.getValue('completionRate')),
   },
   {
     accessorKey: 'enrolledAt',
-    header: '수강 시작일',
+    header: texts.columns.enrolledAt,
     cell: ({ row }) => formatDate(row.getValue('enrolledAt')),
   },
 ];

@@ -12,7 +12,10 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import sidebarData from '@/data/sidebarData.json';
+import uiData from '@/data/uiData.json';
 import type { SidebarMenuItem } from '@/types';
+
+const breadcrumbTexts = uiData.breadcrumb;
 
 function findLabel(path: string): string | null {
   const menu = sidebarData.menu as SidebarMenuItem[];
@@ -48,7 +51,7 @@ export function AdminBreadcrumb() {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink render={<Link href="/" />}>
-            대시보드
+            {breadcrumbTexts.dashboard}
           </BreadcrumbLink>
         </BreadcrumbItem>
         {crumbs.map((crumb, i) => (

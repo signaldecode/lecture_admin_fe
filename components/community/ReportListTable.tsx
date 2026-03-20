@@ -1,83 +1,27 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { ColumnDef } from '@tanstack/react-table';
 import { DataTable } from '@/components/composed/DataTable';
 import { DataTableToolbar } from '@/components/composed/DataTableToolbar';
 import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { StatusBadge } from '@/components/composed/StatusBadge';
+import { Button } from '@/components/ui/button';
+import { ReportActionModal } from '@/components/community/ReportActionModal';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDate } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { CommunityReport, ReportStatus, ReportAction, PaginatedResponse } from '@/types';
+
+const texts = uiData.community.report;
 
 const statusVariantMap: Record<ReportStatus, 'warning' | 'success'> = {
   PENDING: 'warning',
   PROCESSED: 'success',
 };
 
-const statusLabelMap: Record<ReportStatus, string> = {
-  PENDING: '대기',
-  PROCESSED: '처리완료',
-};
-
-const actionLabelMap: Record<ReportAction, string> = {
-  WARN: '경고',
-  DELETE: '삭제',
-  SUSPEND: '정지',
-};
-
-const reportColumns: ColumnDef<CommunityReport>[] = [
-  {
-    accessorKey: 'postTitle',
-    header: '게시글',
-    cell: ({ row }) => (
-      <span className="font-medium">{row.getValue('postTitle')}</span>
-    ),
-  },
-  {
-    accessorKey: 'reason',
-    header: '신고 사유',
-    cell: ({ row }) => {
-      const reason = row.getValue('reason') as string;
-      return (
-        <span className="max-w-[200px] truncate block" title={reason}>
-          {reason}
-        </span>
-      );
-    },
-  },
-  {
-    accessorKey: 'reporterName',
-    header: '신고자',
-  },
-  {
-    accessorKey: 'status',
-    header: '상태',
-    cell: ({ row }) => {
-      const status = row.getValue('status') as ReportStatus;
-      return (
-        <StatusBadge
-          label={statusLabelMap[status]}
-          variant={statusVariantMap[status]}
-        />
-      );
-    },
-  },
-  {
-    accessorKey: 'action',
-    header: '조치',
-    cell: ({ row }) => {
-      const action = row.original.action;
-      if (!action) return <span className="text-muted-foreground">-</span>;
-      return actionLabelMap[action];
-    },
-  },
-  {
-    accessorKey: 'createdAt',
-    header: '신고일',
-    cell: ({ row }) => formatDate(row.getValue('createdAt')),
-  },
-];
+const statusLabelMap = texts.statusLabels as Record<ReportStatus, string>;
+const actionLabelMap = texts.actionLabels as Record<ReportAction, string>;
 
 // TODO: Replace with actual API call
 const mockReports: CommunityReport[] = [
@@ -88,6 +32,72 @@ const mockReports: CommunityReport[] = [
 ];
 
 export function ReportListTable() {
+  const [selectedReport, setSelectedReport] = useState<CommunityReport | null>(null);
+
+  const reportColumns: ColumnDef<CommunityReport>[] = useMemo(() => [
+    {
+      accessorKey: 'postTitle',
+      header: texts.columns.postTitle,
+      cell: ({ row }) => (
+        <span className="font-medium">{row.getValue('postTitle')}</span>
+      ),
+    },
+    {
+      accessorKey: 'reason',
+      header: texts.columns.reason,
+      cell: ({ row }) => {
+        const reason = row.getValue('reason') as string;
+        return (
+          <span className="max-w-[200px] truncate block" title={reason}>
+            {reason}
+          </span>
+        );
+      },
+    },
+    {
+      accessorKey: 'reporterName',
+      header: texts.columns.reporterName,
+    },
+    {
+      accessorKey: 'status',
+      header: texts.columns.status,
+      cell: ({ row }) => {
+        const status = row.getValue('status') as ReportStatus;
+        return (
+          <StatusBadge
+            label={statusLabelMap[status]}
+            variant={statusVariantMap[status]}
+          />
+        );
+      },
+    },
+    {
+      accessorKey: 'action',
+      header: texts.columns.action,
+      cell: ({ row }) => {
+        const action = row.original.action;
+        if (action) return actionLabelMap[action];
+        if (row.original.status === 'PENDING') {
+          return (
+            <Button
+              size="xs"
+              variant="outline"
+              onClick={() => setSelectedReport(row.original)}
+            >
+              {texts.title}
+            </Button>
+          );
+        }
+        return <span className="text-muted-foreground">-</span>;
+      },
+    },
+    {
+      accessorKey: 'createdAt',
+      header: texts.columns.createdAt,
+      cell: ({ row }) => formatDate(row.getValue('createdAt')),
+    },
+  ], []);
+
   const fetchReports = useCallback(
     async (params: {
       page: number;
@@ -133,7 +143,7 @@ export function ReportListTable() {
       <DataTableToolbar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="게시글 제목으로 검색"
+        searchPlaceholder={texts.searchPlaceholder}
       />
 
       <DataTable
@@ -163,6 +173,14 @@ export function ReportListTable() {
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />
+
+      {selectedReport && (
+        <ReportActionModal
+          report={selectedReport}
+          open={!!selectedReport}
+          onOpenChange={(open) => { if (!open) setSelectedReport(null); }}
+        />
+      )}
     </div>
   );
 }

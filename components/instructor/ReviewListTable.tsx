@@ -6,7 +6,10 @@ import { DataTableToolbar } from '@/components/composed/DataTableToolbar';
 import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { useDataTable } from '@/hooks/useDataTable';
 import { reviewColumns } from '@/components/instructor/reviewColumns';
+import uiData from '@/data/uiData.json';
 import type { Review, PaginatedResponse } from '@/types';
+
+const texts = uiData.instructor.reviews;
 
 // TODO: Replace with actual API call to /api/admin/instructor/reviews
 const mockReviews: Review[] = [
@@ -66,7 +69,7 @@ export function ReviewListTable() {
       <DataTableToolbar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="수강생 이름 또는 내용으로 검색"
+        searchPlaceholder={texts.searchPlaceholder}
       />
 
       <DataTable

@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import { TicketDetailCard } from '@/components/support/TicketDetailCard';
+import uiData from '@/data/uiData.json';
 import type { SupportTicket } from '@/types';
 
+const texts = uiData.support.ticketDetail;
+
 export const metadata: Metadata = {
-  title: '문의 상세',
+  title: texts.pageTitle,
 };
 
 interface TicketDetailPageProps {
@@ -29,7 +32,7 @@ export default async function TicketDetailPage({ params }: TicketDetailPageProps
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <h1 className="text-2xl font-bold">문의 상세 (ID: {id})</h1>
+      <h1 className="text-2xl font-bold">{texts.pageTitle} (ID: {id})</h1>
       <TicketDetailCard ticket={mockTicket} />
     </div>
   );

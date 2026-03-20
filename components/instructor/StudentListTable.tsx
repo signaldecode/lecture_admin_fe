@@ -6,7 +6,10 @@ import { DataTableToolbar } from '@/components/composed/DataTableToolbar';
 import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { useDataTable } from '@/hooks/useDataTable';
 import { studentColumns } from '@/components/instructor/studentColumns';
+import uiData from '@/data/uiData.json';
 import type { InstructorStudent, PaginatedResponse } from '@/types';
+
+const texts = uiData.instructor.students;
 
 // TODO: Replace with actual API call to /api/admin/instructor/students
 const mockStudents: InstructorStudent[] = [
@@ -63,7 +66,7 @@ export function StudentListTable() {
       <DataTableToolbar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="수강생 이름으로 검색"
+        searchPlaceholder={texts.searchPlaceholder}
       />
 
       <DataTable

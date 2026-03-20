@@ -13,7 +13,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import uiData from '@/data/uiData.json';
 import type { Member, MemberGrade, MemberStatus } from '@/types';
+
+const texts = uiData.members;
+const commonTexts = uiData.common;
 
 const editSchema = z.object({
   grade: z.string().min(1),
@@ -27,17 +31,20 @@ interface MemberEditFormProps {
   onSave?: (values: EditFormValues) => void;
 }
 
+const gradeLabels = texts.gradeLabels as Record<MemberGrade, string>;
+const statusLabels = texts.statusLabels as Record<MemberStatus, string>;
+
 const gradeOptions: { value: MemberGrade; label: string }[] = [
-  { value: 'BASIC', label: '일반' },
-  { value: 'SILVER', label: '실버' },
-  { value: 'GOLD', label: '골드' },
-  { value: 'PLATINUM', label: '플래티넘' },
+  { value: 'BASIC', label: gradeLabels.BASIC },
+  { value: 'SILVER', label: gradeLabels.SILVER },
+  { value: 'GOLD', label: gradeLabels.GOLD },
+  { value: 'PLATINUM', label: gradeLabels.PLATINUM },
 ];
 
 const statusOptions: { value: MemberStatus; label: string }[] = [
-  { value: 'ACTIVE', label: '활성' },
-  { value: 'SUSPENDED', label: '정지' },
-  { value: 'WITHDRAWN', label: '탈퇴' },
+  { value: 'ACTIVE', label: statusLabels.ACTIVE },
+  { value: 'SUSPENDED', label: statusLabels.SUSPENDED },
+  { value: 'WITHDRAWN', label: statusLabels.WITHDRAWN },
 ];
 
 export function MemberEditForm({ member, onSave }: MemberEditFormProps) {
@@ -57,15 +64,15 @@ export function MemberEditForm({ member, onSave }: MemberEditFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">회원 정보 수정</CardTitle>
+        <CardTitle className="text-base">{texts.editForm.title}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="grade">등급</Label>
+              <Label htmlFor="grade">{texts.editForm.gradeLabel}</Label>
               <Select
-                value={watch('grade')}
+                value={watch('grade') ?? ''}
                 onValueChange={(v) => setValue('grade', v ?? '')}
               >
                 <SelectTrigger id="grade">
@@ -82,9 +89,9 @@ export function MemberEditForm({ member, onSave }: MemberEditFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="status">상태</Label>
+              <Label htmlFor="status">{texts.editForm.statusLabel}</Label>
               <Select
-                value={watch('status')}
+                value={watch('status') ?? ''}
                 onValueChange={(v) => setValue('status', v ?? '')}
               >
                 <SelectTrigger id="status">
@@ -101,7 +108,7 @@ export function MemberEditForm({ member, onSave }: MemberEditFormProps) {
             </div>
           </div>
 
-          <Button type="submit">저장</Button>
+          <Button type="submit">{commonTexts.save}</Button>
         </form>
       </CardContent>
     </Card>

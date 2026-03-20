@@ -6,25 +6,23 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import type { AdminRole } from '@/types';
+import uiData from '@/data/uiData.json';
+import sidebarData from '@/data/sidebarData.json';
+
+const texts = uiData.settings.roles;
+const adminTexts = uiData.settings.admins;
+const commonTexts = uiData.common;
 
 const roles: { key: AdminRole; label: string }[] = [
-  { key: 'SUPER_ADMIN', label: '슈퍼관리자' },
-  { key: 'INSTRUCTOR', label: '강사' },
-  { key: 'CS_AGENT', label: 'CS 담당' },
+  { key: 'SUPER_ADMIN', label: adminTexts.roleLabels.SUPER_ADMIN },
+  { key: 'INSTRUCTOR', label: adminTexts.roleLabels.INSTRUCTOR },
+  { key: 'CS_AGENT', label: adminTexts.roleLabels.CS_AGENT },
 ];
 
-const permissions = [
-  { key: 'dashboard', label: '대시보드' },
-  { key: 'members', label: '회원 관리' },
-  { key: 'courses', label: '강의 관리' },
-  { key: 'orders', label: '주문/결제' },
-  { key: 'coupons', label: '쿠폰/포인트' },
-  { key: 'community', label: '커뮤니티' },
-  { key: 'support', label: '고객센터' },
-  { key: 'content', label: '콘텐츠' },
-  { key: 'analytics', label: '통계/분석' },
-  { key: 'settings', label: '시스템 설정' },
-];
+const permissions = (sidebarData.menu as { key: string; label: string }[]).map((item) => ({
+  key: item.key,
+  label: item.label,
+}));
 
 const defaultMatrix: Record<AdminRole, Record<string, boolean>> = {
   SUPER_ADMIN: Object.fromEntries(permissions.map((p) => [p.key, true])),
@@ -51,14 +49,14 @@ export function RolePermissionEditor() {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-base">역할별 메뉴 접근 권한</CardTitle>
-        <Button onClick={handleSave} size="sm">저장</Button>
+        <CardTitle className="text-base">{texts.cardTitle}</CardTitle>
+        <Button onClick={handleSave} size="sm">{commonTexts.save}</Button>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>메뉴</TableHead>
+              <TableHead>{texts.menuHeader}</TableHead>
               {roles.map((role) => (
                 <TableHead key={role.key} className="text-center">{role.label}</TableHead>
               ))}

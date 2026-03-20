@@ -26,6 +26,7 @@
     "order.refund": ["SUPER_ADMIN"],
     "coupon.create": ["SUPER_ADMIN"],
     "coupon.delete": ["SUPER_ADMIN"],
+    "qna.reply": ["INSTRUCTOR"],
     "ticket.reply": ["SUPER_ADMIN", "CS_AGENT"],
     "notice.create": ["SUPER_ADMIN", "CS_AGENT"],
     "notice.edit": ["SUPER_ADMIN", "CS_AGENT"],

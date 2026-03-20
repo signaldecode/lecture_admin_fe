@@ -117,7 +117,7 @@ export function BannerForm({ banner, mode }: BannerFormProps) {
           <div className="space-y-2">
             <Label htmlFor="banner-position">{bannerTexts.positionLabel}</Label>
             <Select
-              value={positionValue ?? ''}
+              value={positionValue}
               onValueChange={(value: string | null) => {
                 setValue('position', value ?? '', { shouldValidate: true });
               }}

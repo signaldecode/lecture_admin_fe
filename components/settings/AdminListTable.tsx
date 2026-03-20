@@ -8,17 +8,20 @@ import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDate, formatDateTime } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { AdminAccount, AdminRole, PaginatedResponse } from '@/types';
 
-const roleLabelMap: Record<AdminRole, string> = { SUPER_ADMIN: '슈퍼관리자', INSTRUCTOR: '강사', CS_AGENT: 'CS 담당' };
+const texts = uiData.settings.admins;
+
+const roleLabelMap = texts.roleLabels as Record<AdminRole, string>;
 const roleVariantMap: Record<AdminRole, 'success' | 'default' | 'warning'> = { SUPER_ADMIN: 'success', INSTRUCTOR: 'default', CS_AGENT: 'warning' };
 
 const columns: ColumnDef<AdminAccount>[] = [
-  { accessorKey: 'name', header: '이름', cell: ({ row }) => <span className="font-medium">{row.getValue('name')}</span> },
-  { accessorKey: 'email', header: '이메일' },
-  { accessorKey: 'role', header: '역할', cell: ({ row }) => { const role = row.getValue('role') as AdminRole; return <StatusBadge label={roleLabelMap[role]} variant={roleVariantMap[role]} />; } },
-  { accessorKey: 'lastLoginAt', header: '마지막 로그인', cell: ({ row }) => { const v = row.getValue('lastLoginAt') as string | undefined; return v ? formatDateTime(v) : '-'; } },
-  { accessorKey: 'createdAt', header: '등록일', cell: ({ row }) => formatDate(row.getValue('createdAt')) },
+  { accessorKey: 'name', header: texts.columns.name, cell: ({ row }) => <span className="font-medium">{row.getValue('name')}</span> },
+  { accessorKey: 'email', header: texts.columns.email },
+  { accessorKey: 'role', header: texts.columns.role, cell: ({ row }) => { const role = row.getValue('role') as AdminRole; return <StatusBadge label={roleLabelMap[role]} variant={roleVariantMap[role]} />; } },
+  { accessorKey: 'lastLoginAt', header: texts.columns.lastLoginAt, cell: ({ row }) => { const v = row.getValue('lastLoginAt') as string | undefined; return v ? formatDateTime(v) : '-'; } },
+  { accessorKey: 'createdAt', header: texts.columns.createdAt, cell: ({ row }) => formatDate(row.getValue('createdAt')) },
 ];
 
 const mockAdmins: AdminAccount[] = [
@@ -38,7 +41,7 @@ export function AdminListTable() {
 
   return (
     <div>
-      <DataTableToolbar searchValue={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder="이름 또는 이메일로 검색" />
+      <DataTableToolbar searchValue={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder={texts.searchPlaceholder} />
       <DataTable columns={columns} data={data} pageCount={pageCount} pagination={{ pageIndex: page, pageSize }} onPaginationChange={(updater) => { if (typeof updater === 'function') { const next = updater({ pageIndex: page, pageSize }); setPage(next.pageIndex); } }} sorting={sorting} onSortingChange={(updater) => { const next = typeof updater === 'function' ? updater(sorting) : updater; setSorting(next); }} isLoading={isLoading} />
       <DataTablePagination page={page} pageSize={pageSize} pageCount={pageCount} totalElements={totalElements} onPageChange={setPage} onPageSizeChange={setPageSize} />
     </div>

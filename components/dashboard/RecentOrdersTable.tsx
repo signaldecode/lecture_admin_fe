@@ -18,6 +18,7 @@ import {
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { formatCurrency, formatDate } from '@/lib/format';
 import dashboardData from '@/data/dashboardData.json';
+import uiData from '@/data/uiData.json';
 import type { Order, OrderStatus } from '@/types';
 
 interface RecentOrdersTableProps {
@@ -31,13 +32,8 @@ const statusVariantMap: Record<OrderStatus, 'success' | 'warning' | 'destructive
   REFUNDED: 'destructive',
 };
 
-const statusLabelMap: Record<OrderStatus, string> = {
-  COMPLETED: '완료',
-  CANCELLED: '취소',
-  REFUND_REQUESTED: '환불요청',
-  REFUNDED: '환불완료',
-};
-
+const statusLabelMap = uiData.dashboard.recentOrdersStatusLabels as Record<OrderStatus, string>;
+const columnTexts = uiData.dashboard.recentOrdersColumns;
 const texts = dashboardData.tables.recentOrders;
 
 export function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
@@ -56,11 +52,11 @@ export function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>주문자</TableHead>
-              <TableHead>강의</TableHead>
-              <TableHead>금액</TableHead>
-              <TableHead>상태</TableHead>
-              <TableHead>날짜</TableHead>
+              <TableHead>{columnTexts.memberName}</TableHead>
+              <TableHead>{columnTexts.courseTitle}</TableHead>
+              <TableHead>{columnTexts.amount}</TableHead>
+              <TableHead>{columnTexts.status}</TableHead>
+              <TableHead>{columnTexts.createdAt}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

@@ -1,12 +1,15 @@
 import type { Metadata } from 'next';
 import { RolePermissionEditor } from '@/components/settings/RolePermissionEditor';
+import uiData from '@/data/uiData.json';
 
-export const metadata: Metadata = { title: '역할/권한' };
+const texts = uiData.settings.roles;
+
+export const metadata: Metadata = { title: texts.pageTitle };
 
 export default function RolesPage() {
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">역할/권한</h1>
+      <h1 className="text-2xl font-bold">{texts.pageTitle}</h1>
       <RolePermissionEditor />
     </div>
   );

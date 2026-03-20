@@ -8,18 +8,21 @@ import { Button } from '@/components/ui/button';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDate } from '@/lib/format';
 import type { ApprovalItem, PaginatedResponse } from '@/types';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.settings.approvals;
 
 const columns: ColumnDef<ApprovalItem>[] = [
-  { accessorKey: 'courseTitle', header: '강의명', cell: ({ row }) => <span className="font-medium">{row.getValue('courseTitle')}</span> },
-  { accessorKey: 'instructorName', header: '강사' },
-  { accessorKey: 'requestedAt', header: '요청일', cell: ({ row }) => formatDate(row.getValue('requestedAt')) },
+  { accessorKey: 'courseTitle', header: texts.columns.courseTitle, cell: ({ row }) => <span className="font-medium">{row.getValue('courseTitle')}</span> },
+  { accessorKey: 'instructorName', header: texts.columns.instructorName },
+  { accessorKey: 'requestedAt', header: texts.columns.requestedAt, cell: ({ row }) => formatDate(row.getValue('requestedAt')) },
   {
     id: 'actions',
-    header: '처리',
+    header: texts.columns.actions,
     cell: ({ row }) => (
       <div className="flex gap-1">
-        <Button size="xs" onClick={() => { /* TODO: apiClient.patch(`settings/approvals/${row.original.id}/approve`) */ alert(`승인: ${row.original.courseTitle}`); }}>승인</Button>
-        <Button size="xs" variant="destructive" onClick={() => { /* TODO: reject */ alert(`거절: ${row.original.courseTitle}`); }}>거절</Button>
+        <Button size="xs" onClick={() => { /* TODO: apiClient.patch(`settings/approvals/${row.original.id}/approve`) */ alert(`승인: ${row.original.courseTitle}`); }}>{texts.approveButton}</Button>
+        <Button size="xs" variant="destructive" onClick={() => { /* TODO: reject */ alert(`거절: ${row.original.courseTitle}`); }}>{texts.rejectButton}</Button>
       </div>
     ),
   },

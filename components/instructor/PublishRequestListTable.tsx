@@ -9,6 +9,9 @@ import { StatusBadge } from '@/components/composed/StatusBadge';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDate } from '@/lib/format';
 import type { PublishRequest, PublishRequestStatus, PaginatedResponse } from '@/types';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.instructor.publishRequests;
 
 const statusVariantMap: Record<PublishRequestStatus, 'warning' | 'success' | 'destructive'> = {
   PENDING: 'warning',
@@ -16,20 +19,16 @@ const statusVariantMap: Record<PublishRequestStatus, 'warning' | 'success' | 'de
   REJECTED: 'destructive',
 };
 
-const statusLabelMap: Record<PublishRequestStatus, string> = {
-  PENDING: '심사 중',
-  APPROVED: '승인',
-  REJECTED: '반려',
-};
+const statusLabelMap = texts.statusLabels as Record<PublishRequestStatus, string>;
 
 const publishRequestColumns: ColumnDef<PublishRequest>[] = [
   {
     accessorKey: 'courseTitle',
-    header: '강의',
+    header: texts.columns.courseTitle,
   },
   {
     accessorKey: 'status',
-    header: '상태',
+    header: texts.columns.status,
     cell: ({ row }) => {
       const status = row.getValue('status') as PublishRequestStatus;
       return (
@@ -42,12 +41,12 @@ const publishRequestColumns: ColumnDef<PublishRequest>[] = [
   },
   {
     accessorKey: 'requestedAt',
-    header: '요청일',
+    header: texts.columns.requestedAt,
     cell: ({ row }) => formatDate(row.getValue('requestedAt')),
   },
   {
     accessorKey: 'reviewedAt',
-    header: '심사일',
+    header: texts.columns.reviewedAt,
     cell: ({ row }) => {
       const reviewedAt = row.getValue('reviewedAt') as string | undefined;
       return reviewedAt ? formatDate(reviewedAt) : '-';
@@ -55,7 +54,7 @@ const publishRequestColumns: ColumnDef<PublishRequest>[] = [
   },
   {
     accessorKey: 'rejectReason',
-    header: '반려 사유',
+    header: texts.columns.rejectReason,
     cell: ({ row }) => {
       const reason = row.getValue('rejectReason') as string | undefined;
       return reason ? (
@@ -124,7 +123,7 @@ export function PublishRequestListTable() {
       <DataTableToolbar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="강의명으로 검색"
+        searchPlaceholder={texts.searchPlaceholder}
       />
 
       <DataTable

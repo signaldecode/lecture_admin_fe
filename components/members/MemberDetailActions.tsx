@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button';
 import { MemberEditForm } from '@/components/members/MemberEditForm';
 import { PointAdjustModal } from '@/components/members/PointAdjustModal';
 import type { Member } from '@/types';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.members.detail;
 
 interface MemberDetailActionsProps {
   member: Member;
@@ -19,7 +22,7 @@ export function MemberDetailActions({ member }: MemberDetailActionsProps) {
 
       <div className="flex gap-2">
         <Button variant="outline" size="sm" onClick={() => setPointModalOpen(true)}>
-          포인트 조정
+          {texts.pointAdjustButton}
         </Button>
       </div>
 

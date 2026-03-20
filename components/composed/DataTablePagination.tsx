@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import uiData from '@/data/uiData.json';
 
 interface DataTablePaginationProps {
   page: number;
@@ -20,6 +21,7 @@ interface DataTablePaginationProps {
 }
 
 const PAGE_SIZE_OPTIONS = [10, 20, 50];
+const texts = uiData.pagination;
 
 export function DataTablePagination({
   page,
@@ -32,11 +34,11 @@ export function DataTablePagination({
   return (
     <div className="flex items-center justify-between px-2 py-4">
       <p className="text-sm text-muted-foreground">
-        총 {totalElements}건
+        {texts.totalPrefix}{totalElements}{texts.totalSuffix}
       </p>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-          <p className="text-sm">페이지당</p>
+          <p className="text-sm">{texts.perPage}</p>
           <Select
             value={String(pageSize)}
             onValueChange={(value) => onPageSizeChange(Number(value))}
@@ -55,7 +57,7 @@ export function DataTablePagination({
         </div>
 
         <p className="text-sm">
-          {page + 1} / {Math.max(pageCount, 1)} 페이지
+          {page + 1} / {Math.max(pageCount, 1)} {texts.pageSuffix}
         </p>
 
         <div className="flex items-center gap-1">

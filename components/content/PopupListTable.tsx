@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
+import Link from 'next/link';
 import type { ColumnDef } from '@tanstack/react-table';
 import { DataTable } from '@/components/composed/DataTable';
 import { DataTableToolbar } from '@/components/composed/DataTableToolbar';
@@ -8,17 +9,22 @@ import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDate } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { Popup, PaginatedResponse } from '@/types';
 
+const texts = uiData.content.popup;
+
 const columns: ColumnDef<Popup>[] = [
-  { accessorKey: 'title', header: '팝업명' },
-  { accessorKey: 'startDate', header: '시작일', cell: ({ row }) => formatDate(row.getValue('startDate')) },
-  { accessorKey: 'endDate', header: '종료일', cell: ({ row }) => formatDate(row.getValue('endDate')) },
+  { accessorKey: 'title', header: texts.columns.title, cell: ({ row }) => (
+    <Link href={`/content/popups/${row.original.id}`} className="font-medium text-primary hover:underline">{row.getValue('title')}</Link>
+  ) },
+  { accessorKey: 'startDate', header: texts.columns.startDate, cell: ({ row }) => formatDate(row.getValue('startDate')) },
+  { accessorKey: 'endDate', header: texts.columns.endDate, cell: ({ row }) => formatDate(row.getValue('endDate')) },
   {
     accessorKey: 'isActive',
-    header: '상태',
+    header: texts.columns.isActive,
     cell: ({ row }) => (
-      <StatusBadge label={row.getValue('isActive') ? '활성' : '비활성'} variant={row.getValue('isActive') ? 'success' : 'secondary'} />
+      <StatusBadge label={row.getValue('isActive') ? texts.activeLabels.active : texts.activeLabels.inactive} variant={row.getValue('isActive') ? 'success' : 'secondary'} />
     ),
   },
 ];
@@ -39,7 +45,7 @@ export function PopupListTable() {
 
   return (
     <div>
-      <DataTableToolbar searchValue={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder="팝업명으로 검색" />
+      <DataTableToolbar searchValue={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder={texts.searchPlaceholder} />
       <DataTable columns={columns} data={data} pageCount={pageCount} pagination={{ pageIndex: page, pageSize }} onPaginationChange={(updater) => { if (typeof updater === 'function') { const next = updater({ pageIndex: page, pageSize }); setPage(next.pageIndex); } }} sorting={sorting} onSortingChange={(updater) => { const next = typeof updater === 'function' ? updater(sorting) : updater; setSorting(next); }} isLoading={isLoading} />
       <DataTablePagination page={page} pageSize={pageSize} pageCount={pageCount} totalElements={totalElements} onPageChange={setPage} onPageSizeChange={setPageSize} />
     </div>

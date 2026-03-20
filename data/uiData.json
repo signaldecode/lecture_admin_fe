@@ -158,7 +158,21 @@
     }
   },
   "instructor": {
+    "students": {
+      "pageTitle": "내 수강생",
+      "searchPlaceholder": "수강생 이름으로 검색",
+      "columns": {
+        "studentName": "수강생",
+        "email": "이메일",
+        "courseTitle": "수강 강의",
+        "progressRate": "진도율",
+        "completionRate": "완료율",
+        "enrolledAt": "수강 시작일"
+      }
+    },
     "qna": {
+      "pageTitle": "Q&A 관리",
+      "searchPlaceholder": "질문 또는 수강생 이름으로 검색",
       "questionLabel": "질문",
       "answerLabel": "답변",
       "answerPlaceholder": "답변을 입력하세요",
@@ -167,7 +181,88 @@
       "studentLabel": "학생",
       "courseLabel": "강의",
       "createdAtLabel": "질문일",
-      "statusLabel": "상태"
+      "statusLabel": "상태",
+      "columns": {
+        "courseTitle": "강의",
+        "question": "질문",
+        "studentName": "수강생",
+        "status": "상태",
+        "createdAt": "작성일"
+      },
+      "statusLabels": {
+        "PENDING": "답변 대기",
+        "ANSWERED": "답변 완료",
+        "CLOSED": "종료"
+      },
+      "detailTitle": "Q&A 상세"
+    },
+    "reviews": {
+      "pageTitle": "수강평 관리",
+      "searchPlaceholder": "수강생 이름 또는 내용으로 검색",
+      "columns": {
+        "courseTitle": "강의",
+        "studentName": "수강생",
+        "rating": "평점",
+        "content": "내용",
+        "reply": "답변",
+        "createdAt": "작성일"
+      },
+      "replyStatusLabels": {
+        "replied": "답변 완료",
+        "notReplied": "미답변"
+      },
+      "detailTitle": "수강평 상세"
+    },
+    "revenue": {
+      "pageTitle": "매출/정산",
+      "totalRevenueTitle": "총 매출",
+      "settledTitle": "정산 완료",
+      "pendingTitle": "정산 대기",
+      "historyTitle": "정산 내역",
+      "columns": {
+        "period": "정산 기간",
+        "courseSales": "강의 매출",
+        "commission": "수수료",
+        "netAmount": "정산 금액",
+        "status": "상태",
+        "settledAt": "정산일"
+      },
+      "statusLabels": {
+        "SETTLED": "정산 완료",
+        "PENDING": "정산 대기"
+      }
+    },
+    "publishRequests": {
+      "pageTitle": "발행 요청",
+      "searchPlaceholder": "강의명으로 검색",
+      "columns": {
+        "courseTitle": "강의",
+        "status": "상태",
+        "requestedAt": "요청일",
+        "reviewedAt": "심사일",
+        "rejectReason": "반려 사유"
+      },
+      "statusLabels": {
+        "PENDING": "심사 중",
+        "APPROVED": "승인",
+        "REJECTED": "반려"
+      }
+    },
+    "profile": {
+      "pageTitle": "강사 프로필",
+      "formTitle": "프로필 수정",
+      "nameLabel": "이름",
+      "namePlaceholder": "이름을 입력하세요",
+      "bioLabel": "소개",
+      "bioPlaceholder": "강사 소개를 입력하세요",
+      "profileImageLabel": "프로필 이미지 URL",
+      "homepageLabel": "홈페이지",
+      "submittingButton": "저장 중...",
+      "validation": {
+        "nameRequired": "이름을 입력해주세요.",
+        "bioRequired": "소개를 입력해주세요.",
+        "urlInvalid": "올바른 URL을 입력해주세요."
+      }
     },
     "review": {
       "ratingLabel": "평점",
@@ -190,6 +285,37 @@
     "rejectButton": "환불 거절"
   },
   "community": {
+    "posts": {
+      "pageTitle": "게시글 관리",
+      "searchPlaceholder": "제목으로 검색",
+      "columns": {
+        "title": "제목",
+        "authorName": "작성자",
+        "categoryName": "카테고리",
+        "commentCount": "댓글",
+        "reportCount": "신고",
+        "status": "상태",
+        "createdAt": "작성일"
+      },
+      "statusLabels": {
+        "PUBLISHED": "공개",
+        "UNPUBLISHED": "비공개",
+        "DELETED": "삭제"
+      },
+      "detailTitle": "게시글 상세"
+    },
+    "reports": {
+      "pageTitle": "신고 관리"
+    },
+    "categories": {
+      "pageTitle": "카테고리 관리",
+      "columns": {
+        "name": "카테고리명",
+        "slug": "슬러그",
+        "postCount": "게시글 수",
+        "order": "정렬 순서"
+      }
+    },
     "post": {
       "titleLabel": "제목",
       "authorLabel": "작성자",
@@ -216,11 +342,350 @@
       "reporterLabel": "신고자",
       "warnButton": "경고",
       "deleteButton": "삭제",
-      "suspendButton": "정지"
+      "suspendButton": "정지",
+      "searchPlaceholder": "게시글 제목으로 검색",
+      "columns": {
+        "postTitle": "게시글",
+        "reason": "신고 사유",
+        "reporterName": "신고자",
+        "status": "상태",
+        "action": "조치",
+        "createdAt": "신고일"
+      },
+      "statusLabels": {
+        "PENDING": "대기",
+        "PROCESSED": "처리완료"
+      },
+      "actionLabels": {
+        "WARN": "경고",
+        "DELETE": "삭제",
+        "SUSPEND": "정지"
+      }
     }
+  },
+  "dashboard": {
+    "pageTitle": "대시보드",
+    "welcomeMessage": "님, 환영합니다.",
+    "alertTitle": "알림",
+    "alertCountUnit": "건",
+    "recentOrdersColumns": {
+      "memberName": "주문자",
+      "courseTitle": "강의",
+      "amount": "금액",
+      "status": "상태",
+      "createdAt": "날짜"
+    },
+    "recentOrdersStatusLabels": {
+      "COMPLETED": "완료",
+      "CANCELLED": "취소",
+      "REFUND_REQUESTED": "환불요청",
+      "REFUNDED": "환불완료"
+    },
+    "recentTicketsColumns": {
+      "memberName": "회원",
+      "title": "제목",
+      "status": "상태",
+      "createdAt": "등록일"
+    },
+    "recentTicketsStatusLabels": {
+      "PENDING": "대기",
+      "IN_PROGRESS": "처리중",
+      "RESOLVED": "해결",
+      "CLOSED": "종료"
+    },
+    "recentQnaColumns": {
+      "courseTitle": "강의",
+      "question": "질문",
+      "studentName": "수강생",
+      "answer": "답변",
+      "createdAt": "등록일"
+    },
+    "recentQnaStatusLabels": {
+      "answered": "완료",
+      "pending": "대기"
+    }
+  },
+  "members": {
+    "pageTitle": "회원 관리",
+    "searchPlaceholder": "이름 또는 이메일로 검색",
+    "columns": {
+      "name": "이름",
+      "email": "이메일",
+      "grade": "등급",
+      "status": "상태",
+      "point": "포인트",
+      "createdAt": "가입일"
+    },
+    "gradeLabels": {
+      "BASIC": "일반",
+      "SILVER": "실버",
+      "GOLD": "골드",
+      "PLATINUM": "플래티넘"
+    },
+    "statusLabels": {
+      "ACTIVE": "활성",
+      "SUSPENDED": "정지",
+      "WITHDRAWN": "탈퇴"
+    },
+    "editForm": {
+      "title": "회원 정보 수정",
+      "gradeLabel": "등급",
+      "statusLabel": "상태"
+    },
+    "detail": {
+      "pageTitle": "회원 상세",
+      "cardTitle": "회원 정보",
+      "emailLabel": "이메일",
+      "phoneLabel": "전화번호",
+      "gradeLabel": "등급",
+      "pointLabel": "포인트",
+      "createdAtLabel": "가입일",
+      "lastLoginAtLabel": "마지막 로그인",
+      "pointAdjustButton": "포인트 조정"
+    },
+    "courseHistory": {
+      "title": "수강 이력",
+      "columns": {
+        "courseTitle": "강의명",
+        "enrolledAt": "수강 시작일",
+        "progressRate": "진도율",
+        "completedAt": "완료일"
+      }
+    },
+    "orderHistory": {
+      "title": "주문 이력",
+      "columns": {
+        "orderId": "주문번호",
+        "courseTitle": "강의명",
+        "amount": "금액",
+        "status": "상태",
+        "createdAt": "결제일"
+      }
+    },
+    "pointAdjust": {
+      "title": "포인트 조정",
+      "description": "님의 포인트를 조정합니다.",
+      "currentPrefix": "현재: ",
+      "amountLabel": "조정 포인트",
+      "amountPlaceholder": "양수: 지급 / 음수: 차감",
+      "reasonLabel": "사유",
+      "reasonPlaceholder": "포인트 조정 사유를 입력하세요",
+      "adjustButton": "조정"
+    }
+  },
+  "courses": {
+    "pageTitle": "강의 관리",
+    "searchPlaceholder": "강의명으로 검색",
+    "createButton": "강의 등록",
+    "columns": {
+      "title": "강의명",
+      "instructorName": "강사",
+      "categoryName": "카테고리",
+      "difficulty": "난이도",
+      "price": "가격",
+      "studentCount": "수강생",
+      "status": "상태",
+      "createdAt": "등록일"
+    },
+    "statusLabels": {
+      "DRAFT": "임시저장",
+      "PENDING": "승인대기",
+      "PUBLISHED": "공개",
+      "UNPUBLISHED": "비공개"
+    },
+    "difficultyLabels": {
+      "BEGINNER": "입문",
+      "INTERMEDIATE": "중급",
+      "ADVANCED": "고급"
+    },
+    "detail": {
+      "pageTitle": "강의 상세",
+      "cardTitle": "강의 정보",
+      "instructorLabel": "강사",
+      "categoryLabel": "카테고리",
+      "difficultyLabel": "난이도",
+      "priceLabel": "가격",
+      "studentCountLabel": "수강생",
+      "ratingLabel": "평점",
+      "statusLabel": "상태",
+      "createdAtLabel": "등록일",
+      "updatedAtLabel": "수정일",
+      "descriptionLabel": "강의 설명",
+      "editButton": "수정"
+    },
+    "form": {
+      "createTitle": "강의 등록",
+      "editTitle": "강의 수정",
+      "titleLabel": "강의명",
+      "titlePlaceholder": "강의명을 입력하세요",
+      "descriptionLabel": "강의 설명",
+      "descriptionPlaceholder": "강의에 대한 설명을 입력하세요",
+      "categoryLabel": "카테고리",
+      "categoryPlaceholder": "카테고리 선택",
+      "difficultyLabel": "난이도",
+      "difficultyPlaceholder": "난이도 선택",
+      "priceLabel": "가격 (원)",
+      "pricePlaceholder": "0",
+      "submitCreateButton": "등록",
+      "submitEditButton": "수정",
+      "submittingButton": "저장 중..."
+    },
+    "validation": {
+      "titleRequired": "강의명을 입력해주세요.",
+      "descriptionRequired": "강의 설명을 입력해주세요.",
+      "categoryRequired": "카테고리를 선택해주세요.",
+      "difficultyRequired": "난이도를 선택해주세요.",
+      "priceInvalid": "가격은 0 이상의 숫자여야 합니다."
+    }
+  },
+  "support": {
+    "ticketDetail": {
+      "pageTitle": "문의 상세",
+      "inquiryTitle": "문의 내용",
+      "memberLabel": "회원",
+      "emailLabel": "이메일",
+      "titleLabel": "제목",
+      "contentLabel": "내용",
+      "statusLabel": "상태",
+      "createdAtLabel": "접수일",
+      "resolvedAtLabel": "해결일",
+      "replyTitle": "답변",
+      "replyLabel": "답변 내용",
+      "replyPlaceholder": "답변을 입력하세요",
+      "replyButton": "답변 등록",
+      "statusLabels": {
+        "PENDING": "대기",
+        "IN_PROGRESS": "처리중",
+        "RESOLVED": "해결",
+        "CLOSED": "종료"
+      }
+    },
+    "tickets": {
+      "pageTitle": "1:1 문의",
+      "searchPlaceholder": "제목 또는 회원명으로 검색",
+      "columns": {
+        "title": "제목",
+        "memberName": "회원",
+        "status": "상태",
+        "createdAt": "접수일"
+      },
+      "statusLabels": {
+        "PENDING": "대기",
+        "IN_PROGRESS": "처리중",
+        "RESOLVED": "해결",
+        "CLOSED": "종료"
+      }
+    },
+    "notices": {
+      "pageTitle": "공지사항",
+      "createButton": "공지 작성",
+      "columns": {
+        "title": "제목",
+        "isPinned": "고정",
+        "viewCount": "조회수",
+        "createdAt": "작성일",
+        "updatedAt": "수정일"
+      },
+      "editTitle": "공지 수정"
+    },
+    "faq": {
+      "pageTitle": "FAQ 관리"
+    },
+    "noticeForm": {
+      "pageTitle": "공지 작성",
+      "formTitle": "공지 작성",
+      "titleLabel": "제목",
+      "titlePlaceholder": "공지 제목을 입력하세요",
+      "contentLabel": "내용",
+      "contentPlaceholder": "공지 내용을 입력하세요",
+      "isPinnedLabel": "상단 고정",
+      "submitButton": "등록",
+      "submittingButton": "등록 중...",
+      "validation": {
+        "titleRequired": "제목을 입력해주세요.",
+        "contentRequired": "내용을 입력해주세요."
+      }
+    }
+  },
+  "analytics": {
+    "pageTitle": "통계/분석"
+  },
+  "settings": {
+    "admins": {
+      "pageTitle": "관리자 계정",
+      "searchPlaceholder": "이름 또는 이메일로 검색",
+      "columns": {
+        "name": "이름",
+        "email": "이메일",
+        "role": "역할",
+        "lastLoginAt": "마지막 로그인",
+        "createdAt": "등록일"
+      },
+      "roleLabels": {
+        "SUPER_ADMIN": "슈퍼관리자",
+        "INSTRUCTOR": "강사",
+        "CS_AGENT": "CS 담당"
+      }
+    },
+    "roles": {
+      "pageTitle": "역할/권한",
+      "cardTitle": "역할별 메뉴 접근 권한",
+      "menuHeader": "메뉴"
+    },
+    "approvals": {
+      "pageTitle": "발행 승인",
+      "columns": {
+        "courseTitle": "강의명",
+        "instructorName": "강사",
+        "requestedAt": "요청일",
+        "actions": "처리"
+      },
+      "approveButton": "승인",
+      "rejectButton": "거절"
+    },
+    "logs": {
+      "pageTitle": "활동 로그",
+      "searchPlaceholder": "관리자명 또는 동작으로 검색",
+      "columns": {
+        "adminName": "관리자",
+        "action": "동작",
+        "targetType": "대상",
+        "targetId": "ID",
+        "details": "상세",
+        "createdAt": "일시"
+      }
+    }
+  },
+  "pagination": {
+    "totalPrefix": "총 ",
+    "totalSuffix": "건",
+    "perPage": "페이지당",
+    "pageSuffix": "페이지"
+  },
+  "breadcrumb": {
+    "dashboard": "대시보드"
   },
   "content": {
     "banner": {
+      "pageTitle": "배너 관리",
+      "searchPlaceholder": "배너명으로 검색",
+      "columns": {
+        "title": "배너명",
+        "position": "위치",
+        "order": "순서",
+        "startDate": "시작일",
+        "endDate": "종료일",
+        "isActive": "상태"
+      },
+      "positionLabels": {
+        "TOP": "상단",
+        "MIDDLE": "중간",
+        "BOTTOM": "하단"
+      },
+      "activeLabels": {
+        "active": "활성",
+        "inactive": "비활성"
+      },
       "createTitle": "배너 생성",
       "editTitle": "배너 수정",
       "titleLabel": "제목",
@@ -251,7 +716,17 @@
         "orderRequired": "순서를 입력해주세요."
       }
     },
+    "terms": {
+      "pageTitle": "약관 관리",
+      "typeLabels": {
+        "TERMS_OF_SERVICE": "이용약관",
+        "PRIVACY_POLICY": "개인정보처리방침"
+      },
+      "effectiveDateLabel": "시행일",
+      "saveSuccessMessage": "저장되었습니다."
+    },
     "popup": {
+      "pageTitle": "팝업 관리",
       "createTitle": "팝업 생성",
       "editTitle": "팝업 수정",
       "titleLabel": "제목",
@@ -264,6 +739,17 @@
       "endDateLabel": "종료일",
       "submitCreateButton": "팝업 생성",
       "submitEditButton": "팝업 수정",
+      "searchPlaceholder": "팝업명으로 검색",
+      "columns": {
+        "title": "팝업명",
+        "startDate": "시작일",
+        "endDate": "종료일",
+        "isActive": "상태"
+      },
+      "activeLabels": {
+        "active": "활성",
+        "inactive": "비활성"
+      },
       "validation": {
         "titleRequired": "팝업 제목을 입력해주세요.",
         "contentRequired": "팝업 내용을 입력해주세요.",

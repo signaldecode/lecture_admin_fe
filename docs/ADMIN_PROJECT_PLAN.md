@@ -1110,3 +1110,157 @@ NEXT_PUBLIC_ADMIN_DOMAIN=admin.example.com
 
 > 두 프로젝트는 스타일 시스템이 다르므로, 스타일/UI 컴포넌트는 공유하지 않는다.
 > Admin에서 shadcn/ui를 선택한 이유: 대시보드에 필요한 Table/Form/Dialog/Chart 등 복잡한 컴포넌트가 사전 구축되어 있어 개발 속도가 빠르다.
+
+---
+
+## 15. 구현 진행 현황 (2026-03-20 기준)
+
+### 완료된 항목
+
+#### Phase 1 — 기반 + 핵심 (MVP) ✅
+
+| 순서 | 항목 | 상태 | 비고 |
+|------|------|:----:|------|
+| 1 | 프로젝트 초기화 | ✅ | Next.js 16 + Tailwind 4 + shadcn/ui (base-nova) + TypeScript strict |
+| 2 | 인증 + 역할 라우팅 | ✅ | JWT 쿠키 인증, `proxy.ts` 라우트 보호 (Next.js 16에서 middleware → proxy 변경), 역할별 리다이렉트, 목 계정 3개 |
+| 3 | 레이아웃 + 역할 사이드바 | ✅ | shadcn Sidebar + Header + Breadcrumb + RoleGuard, 역할별 메뉴 필터링 |
+| 4 | 공통 UI (shadcn/ui) | ✅ | DataTable (TanStack) + DataTablePagination + DataTableToolbar + StatCard + StatusBadge + SearchInput + ConfirmDialog + EmptyState |
+| 5 | 대시보드 (역할별 위젯) | ✅ | SUPER_ADMIN/INSTRUCTOR/CS_AGENT 각각 다른 메트릭 카드 + 차트(Recharts) + 최근 데이터 테이블 |
+| 6 | 강의 관리 | ⚠️ | 목록 + 생성/수정 폼 + 상태 토글 + 발행 요청 완료. **커리큘럼 에디터, 영상 업로드 미구현** |
+| 7 | 회원 관리 | ✅ | 목록 + 상세 + 등급/상태 변경 + 수강이력 + 주문이력 + 포인트 조정 모달 |
+
+#### Phase 2 — 강사 전용 + 운영 확장 ✅
+
+| 순서 | 항목 | 상태 | 비고 |
+|------|------|:----:|------|
+| 8 | 강사 전용 — 수강생/Q&A | ✅ | 수강생 목록 + Q&A 목록/답변 패널 + 수강평 목록/답변 |
+| 9 | 강사 전용 — 매출/정산 | ✅ | 매출 요약 카드 + 정산 테이블 + 발행 요청 현황 + 프로필 수정 폼 |
+| 10 | 강의 공개 승인 플로우 | ✅ | INSTRUCTOR 발행 요청 버튼 + SUPER_ADMIN 승인/거절 (settings/approvals) |
+| 11 | 주문/결제 | ✅ | 주문 목록 + 상세 + 환불 처리 모달 |
+| 12 | 쿠폰/포인트 | ✅ | 쿠폰 목록 + 생성 폼 + 대량 발급 모달 |
+| 13 | 고객센터 | ✅ | 문의 목록/상세/답변 + 공지사항 CRUD + FAQ 목록 |
+
+#### Phase 3 — 콘텐츠 + 분석 ✅
+
+| 순서 | 항목 | 상태 | 비고 |
+|------|------|:----:|------|
+| 14 | 커뮤니티 관리 | ✅ | 게시글 목록/상세 + 신고 처리 모달 + 카테고리 목록 |
+| 15 | 콘텐츠 관리 | ✅ | 배너 목록/폼 + 팝업 목록/폼 + 약관 에디터 (탭 전환) |
+| 16 | 통계/분석 (역할별 탭) | ✅ | 가입 통계(차트) + 수강 통계(테이블) + 매출 통계(바 차트), 역할별 탭 필터 |
+| 17 | 강사 프로필 수정 | ✅ | RHF + Zod 폼 (이름, 소개, 이미지, SNS 링크) |
+
+#### Phase 4 — 시스템 고도화 ⚠️
+
+| 순서 | 항목 | 상태 | 비고 |
+|------|------|:----:|------|
+| 18 | 관리자/강사 계정 | ✅ | 계정 목록 + 역할/권한 매트릭스 (체크박스 에디터) |
+| 19 | 활동 로그 | ✅ | 관리자 작업 이력 DataTable |
+| 20 | 고도화 | ❌ | 대량 작업, 엑셀 내보내기, 실시간 알림 미구현 |
+
+---
+
+### 미구현 항목
+
+#### A. 기능 (기획서 명시)
+
+| 항목 | 우선순위 | 설명 |
+|------|:--------:|------|
+| 강의 커리큘럼 에디터 | 높음 | 섹션/레슨 추가·삭제·정렬 (드래그앤드롭) |
+| 영상 업로드 | 높음 | Presigned URL 방식 업로드 + 진행률 표시 |
+| 리치 텍스트 에디터 | 중간 | 공지사항, FAQ, 약관 본문용 (현재는 Textarea) |
+| 대량 작업 | 낮음 | 일괄 상태 변경 (체크박스 선택 → 일괄 처리) |
+| 엑셀 내보내기 | 낮음 | DataTable 데이터 CSV/Excel 다운로드 |
+| 실시간 알림 | 낮음 | WebSocket/SSE 기반 알림 (새 문의, 환불 요청 등) |
+
+#### B. 품질/안정성
+
+| 항목 | 우선순위 | 설명 |
+|------|:--------:|------|
+| 백엔드 API 연동 | 높음 | 목 데이터 → 실제 API 교체 (모든 파일에 TODO 주석 있음) |
+| error.tsx | 중간 | 페이지별 에러 바운더리 |
+| loading.tsx | 중간 | 페이지별 로딩 스켈레톤 |
+| 다크모드 토글 | 낮음 | CSS 변수 준비됨, 토글 UI 추가 필요 |
+| 반응형 검증 | 낮음 | 모바일/태블릿 레이아웃 세부 점검 |
+| 테스트 | 낮음 | 단위/통합 테스트 |
+| 배포 설정 | 낮음 | Docker, CI/CD |
+
+---
+
+### 기술 스택 확정
+
+| 항목 | 선택 | 버전 |
+|------|------|------|
+| Framework | Next.js (App Router) | 16.2.0 |
+| Language | TypeScript (strict) | 5.9 |
+| UI | shadcn/ui (base-nova, Radix → base-ui) | latest |
+| CSS | Tailwind CSS | 4 |
+| State | Zustand | latest |
+| Form | React Hook Form + Zod | latest |
+| Table | TanStack Table | latest |
+| Chart | Recharts (shadcn Chart wrapper) | latest |
+| Icons | Lucide React | latest |
+| 라우트 보호 | proxy.ts (Next.js 16, middleware 대체) | — |
+| 인증 | JWT (httpOnly Cookie) | — |
+
+### 목 계정 (개발용)
+
+| 역할 | 이메일 | 비밀번호 |
+|------|--------|----------|
+| SUPER_ADMIN | `admin@example.com` | `admin1234` |
+| INSTRUCTOR | `instructor@example.com` | `inst1234` |
+| CS_AGENT | `cs@example.com` | `cs1234` |
+
+> 백엔드 연동 시 `app/api/auth/login/route.ts` 상단의 mock 관련 코드를 제거한다.
+
+### 전체 라우트 목록 (38개)
+
+```
+/                          대시보드 (역할별 위젯)
+/login                     로그인
+
+/members                   회원 목록
+/members/[id]              회원 상세 (수정/수강이력/주문이력/포인트)
+
+/courses                   강의 목록
+/courses/new               강의 등록
+/courses/[id]              강의 수정
+
+/instructor/students       내 수강생
+/instructor/qna            Q&A 관리
+/instructor/reviews        수강평 관리
+/instructor/revenue        매출/정산
+/instructor/publish-requests  발행 요청 현황
+/instructor/profile        강사 프로필
+
+/orders                    주문 목록
+/orders/[id]               주문 상세 (환불 처리)
+
+/coupons                   쿠폰 목록
+/coupons/new               쿠폰 생성
+
+/community/posts           게시글 관리
+/community/reports         신고 관리
+/community/categories      카테고리 관리
+
+/support/tickets           1:1 문의
+/support/tickets/[id]      문의 상세 (답변)
+/support/notices           공지사항
+/support/notices/new       공지 작성
+/support/faq               FAQ 관리
+
+/content/banners           배너 관리
+/content/popups            팝업 관리
+/content/terms             약관 관리
+
+/analytics                 통계/분석 (가입/수강/매출 탭)
+
+/settings/admins           관리자 계정
+/settings/roles            역할/권한
+/settings/approvals        발행 승인
+/settings/logs             활동 로그
+
+/api/auth/login            로그인 API
+/api/auth/logout           로그아웃 API
+/api/auth/refresh          토큰 갱신 API
+/api/proxy/[...path]       백엔드 프록시 API
+```

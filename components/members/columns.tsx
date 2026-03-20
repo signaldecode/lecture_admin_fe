@@ -1,9 +1,13 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
+import Link from 'next/link';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { formatDate, formatNumber } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { Member, MemberGrade, MemberStatus } from '@/types';
+
+const texts = uiData.members;
 
 const gradeVariantMap: Record<MemberGrade, 'secondary' | 'default' | 'warning' | 'success'> = {
   BASIC: 'secondary',
@@ -12,12 +16,7 @@ const gradeVariantMap: Record<MemberGrade, 'secondary' | 'default' | 'warning' |
   PLATINUM: 'success',
 };
 
-const gradeLabelMap: Record<MemberGrade, string> = {
-  BASIC: '일반',
-  SILVER: '실버',
-  GOLD: '골드',
-  PLATINUM: '플래티넘',
-};
+const gradeLabelMap = texts.gradeLabels as Record<MemberGrade, string>;
 
 const statusVariantMap: Record<MemberStatus, 'success' | 'destructive' | 'secondary'> = {
   ACTIVE: 'success',
@@ -25,27 +24,28 @@ const statusVariantMap: Record<MemberStatus, 'success' | 'destructive' | 'second
   WITHDRAWN: 'secondary',
 };
 
-const statusLabelMap: Record<MemberStatus, string> = {
-  ACTIVE: '활성',
-  SUSPENDED: '정지',
-  WITHDRAWN: '탈퇴',
-};
+const statusLabelMap = texts.statusLabels as Record<MemberStatus, string>;
 
 export const memberColumns: ColumnDef<Member>[] = [
   {
     accessorKey: 'name',
-    header: '이름',
+    header: texts.columns.name,
     cell: ({ row }) => (
-      <span className="font-medium">{row.getValue('name')}</span>
+      <Link
+        href={`/members/${row.original.id}`}
+        className="font-medium text-primary hover:underline"
+      >
+        {row.getValue('name')}
+      </Link>
     ),
   },
   {
     accessorKey: 'email',
-    header: '이메일',
+    header: texts.columns.email,
   },
   {
     accessorKey: 'grade',
-    header: '등급',
+    header: texts.columns.grade,
     cell: ({ row }) => {
       const grade = row.getValue('grade') as MemberGrade;
       return (
@@ -58,7 +58,7 @@ export const memberColumns: ColumnDef<Member>[] = [
   },
   {
     accessorKey: 'status',
-    header: '상태',
+    header: texts.columns.status,
     cell: ({ row }) => {
       const status = row.getValue('status') as MemberStatus;
       return (
@@ -71,12 +71,12 @@ export const memberColumns: ColumnDef<Member>[] = [
   },
   {
     accessorKey: 'point',
-    header: '포인트',
+    header: texts.columns.point,
     cell: ({ row }) => formatNumber(row.getValue('point')),
   },
   {
     accessorKey: 'createdAt',
-    header: '가입일',
+    header: texts.columns.createdAt,
     cell: ({ row }) => formatDate(row.getValue('createdAt')),
   },
 ];

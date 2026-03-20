@@ -7,7 +7,10 @@ import { DataTableToolbar } from '@/components/composed/DataTableToolbar';
 import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { useDataTable } from '@/hooks/useDataTable';
 import { memberColumns } from '@/components/members/columns';
+import uiData from '@/data/uiData.json';
 import type { Member, PaginatedResponse } from '@/types';
+
+const texts = uiData.members;
 
 // Mock data for development
 const mockMembers: Member[] = [
@@ -69,7 +72,7 @@ export function MemberListTable() {
       <DataTableToolbar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="이름 또는 이메일로 검색"
+        searchPlaceholder={texts.searchPlaceholder}
       />
 
       <DataTable

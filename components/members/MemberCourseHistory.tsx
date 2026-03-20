@@ -4,6 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { formatDate, formatPercent } from '@/lib/format';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.members.courseHistory;
 
 interface CourseHistoryItem {
   courseId: number;
@@ -29,16 +32,16 @@ export function MemberCourseHistory({ memberId }: MemberCourseHistoryProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">수강 이력</CardTitle>
+        <CardTitle className="text-base">{texts.title}</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>강의명</TableHead>
-              <TableHead>수강 시작일</TableHead>
-              <TableHead>진도율</TableHead>
-              <TableHead>완료일</TableHead>
+              <TableHead>{texts.columns.courseTitle}</TableHead>
+              <TableHead>{texts.columns.enrolledAt}</TableHead>
+              <TableHead>{texts.columns.progressRate}</TableHead>
+              <TableHead>{texts.columns.completedAt}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

@@ -5,23 +5,18 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { formatDate, formatNumber } from '@/lib/format';
 import type { Member, MemberGrade, MemberStatus } from '@/types';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.members;
+const detailTexts = texts.detail;
 
 interface MemberDetailCardProps {
   member: Member;
 }
 
-const gradeLabelMap: Record<MemberGrade, string> = {
-  BASIC: '일반',
-  SILVER: '실버',
-  GOLD: '골드',
-  PLATINUM: '플래티넘',
-};
+const gradeLabelMap = texts.gradeLabels as Record<MemberGrade, string>;
 
-const statusLabelMap: Record<MemberStatus, string> = {
-  ACTIVE: '활성',
-  SUSPENDED: '정지',
-  WITHDRAWN: '탈퇴',
-};
+const statusLabelMap = texts.statusLabels as Record<MemberStatus, string>;
 
 const statusVariantMap: Record<MemberStatus, 'success' | 'destructive' | 'secondary'> = {
   ACTIVE: 'success',
@@ -35,7 +30,7 @@ export function MemberDetailCard({ member }: MemberDetailCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">회원 정보</CardTitle>
+        <CardTitle className="text-base">{detailTexts.cardTitle}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex items-start gap-4">
@@ -52,30 +47,30 @@ export function MemberDetailCard({ member }: MemberDetailCardProps) {
             </div>
             <dl className="grid gap-2 text-sm sm:grid-cols-2">
               <div>
-                <dt className="text-muted-foreground">이메일</dt>
+                <dt className="text-muted-foreground">{detailTexts.emailLabel}</dt>
                 <dd>{member.email}</dd>
               </div>
               {member.phone && (
                 <div>
-                  <dt className="text-muted-foreground">전화번호</dt>
+                  <dt className="text-muted-foreground">{detailTexts.phoneLabel}</dt>
                   <dd>{member.phone}</dd>
                 </div>
               )}
               <div>
-                <dt className="text-muted-foreground">등급</dt>
+                <dt className="text-muted-foreground">{detailTexts.gradeLabel}</dt>
                 <dd>{gradeLabelMap[member.grade]}</dd>
               </div>
               <div>
-                <dt className="text-muted-foreground">포인트</dt>
+                <dt className="text-muted-foreground">{detailTexts.pointLabel}</dt>
                 <dd>{formatNumber(member.point)}P</dd>
               </div>
               <div>
-                <dt className="text-muted-foreground">가입일</dt>
+                <dt className="text-muted-foreground">{detailTexts.createdAtLabel}</dt>
                 <dd>{formatDate(member.createdAt)}</dd>
               </div>
               {member.lastLoginAt && (
                 <div>
-                  <dt className="text-muted-foreground">마지막 로그인</dt>
+                  <dt className="text-muted-foreground">{detailTexts.lastLoginAtLabel}</dt>
                   <dd>{formatDate(member.lastLoginAt)}</dd>
                 </div>
               )}

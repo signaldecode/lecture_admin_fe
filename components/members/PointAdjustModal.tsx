@@ -14,6 +14,10 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { formatNumber } from '@/lib/format';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.members.pointAdjust;
+const commonTexts = uiData.common;
 
 interface PointAdjustModalProps {
   memberId: number;
@@ -49,27 +53,27 @@ export function PointAdjustModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>포인트 조정</DialogTitle>
+          <DialogTitle>{texts.title}</DialogTitle>
           <DialogDescription>
-            {memberName}님의 포인트를 조정합니다. (현재: {formatNumber(currentPoint)}P)
+            {memberName}{texts.description} ({texts.currentPrefix}{formatNumber(currentPoint)}P)
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-2">
           <div className="space-y-2">
-            <Label htmlFor="point-amount">조정 포인트</Label>
+            <Label htmlFor="point-amount">{texts.amountLabel}</Label>
             <Input
               id="point-amount"
               type="number"
-              placeholder="양수: 지급 / 음수: 차감"
+              placeholder={texts.amountPlaceholder}
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="point-reason">사유</Label>
+            <Label htmlFor="point-reason">{texts.reasonLabel}</Label>
             <Textarea
               id="point-reason"
-              placeholder="포인트 조정 사유를 입력하세요"
+              placeholder={texts.reasonPlaceholder}
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               rows={3}
@@ -78,10 +82,10 @@ export function PointAdjustModal({
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            취소
+            {commonTexts.cancel}
           </Button>
           <Button onClick={handleSubmit} disabled={!amount || Number(amount) === 0}>
-            조정
+            {texts.adjustButton}
           </Button>
         </DialogFooter>
       </DialogContent>

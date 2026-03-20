@@ -4,10 +4,13 @@ import { MemberDetailActions } from '@/components/members/MemberDetailActions';
 import { MemberCourseHistory } from '@/components/members/MemberCourseHistory';
 import { MemberOrderHistory } from '@/components/members/MemberOrderHistory';
 import { getServerRole } from '@/lib/auth';
+import uiData from '@/data/uiData.json';
 import type { Member } from '@/types';
 
+const texts = uiData.members.detail;
+
 export const metadata: Metadata = {
-  title: '회원 상세',
+  title: texts.pageTitle,
 };
 
 interface MemberDetailPageProps {
@@ -33,7 +36,7 @@ export default async function MemberDetailPage({ params }: MemberDetailPageProps
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <h1 className="text-2xl font-bold">회원 상세</h1>
+      <h1 className="text-2xl font-bold">{texts.pageTitle}</h1>
       <MemberDetailCard member={mockMember} />
       {role === 'SUPER_ADMIN' && (
         <MemberDetailActions member={mockMember} />

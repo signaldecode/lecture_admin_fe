@@ -1,25 +1,29 @@
 'use client';
 
+import Link from 'next/link';
 import type { ColumnDef } from '@tanstack/react-table';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { formatDate } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { Review } from '@/types';
+
+const texts = uiData.instructor.reviews;
 
 export const reviewColumns: ColumnDef<Review>[] = [
   {
     accessorKey: 'courseTitle',
-    header: '강의',
+    header: texts.columns.courseTitle,
   },
   {
     accessorKey: 'studentName',
-    header: '수강생',
+    header: texts.columns.studentName,
   },
   {
     accessorKey: 'rating',
-    header: '평점',
+    header: texts.columns.rating,
     cell: ({ row }) => {
       const rating = row.getValue('rating') as number;
-      const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+      const stars = '\u2605'.repeat(rating) + '\u2606'.repeat(5 - rating);
       return (
         <span className="text-yellow-500" title={`${rating}점`}>
           {stars}
@@ -29,31 +33,35 @@ export const reviewColumns: ColumnDef<Review>[] = [
   },
   {
     accessorKey: 'content',
-    header: '내용',
+    header: texts.columns.content,
     cell: ({ row }) => {
       const content = row.getValue('content') as string;
       return (
-        <span className="line-clamp-1" title={content}>
+        <Link
+          href={`/instructor/reviews/${row.original.id}`}
+          className="line-clamp-1 text-primary hover:underline"
+          title={content}
+        >
           {content}
-        </span>
+        </Link>
       );
     },
   },
   {
     accessorKey: 'reply',
-    header: '답변',
+    header: texts.columns.reply,
     cell: ({ row }) => {
       const reply = row.getValue('reply') as string | undefined;
       return reply ? (
-        <StatusBadge label="답변 완료" variant="success" />
+        <StatusBadge label={texts.replyStatusLabels.replied} variant="success" />
       ) : (
-        <StatusBadge label="미답변" variant="secondary" />
+        <StatusBadge label={texts.replyStatusLabels.notReplied} variant="secondary" />
       );
     },
   },
   {
     accessorKey: 'createdAt',
-    header: '작성일',
+    header: texts.columns.createdAt,
     cell: ({ row }) => formatDate(row.getValue('createdAt')),
   },
 ];

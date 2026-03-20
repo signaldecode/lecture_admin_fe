@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
+import Link from 'next/link';
 import type { ColumnDef } from '@tanstack/react-table';
 import { DataTable } from '@/components/composed/DataTable';
 import { DataTableToolbar } from '@/components/composed/DataTableToolbar';
@@ -8,27 +9,33 @@ import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDate } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { Banner, PaginatedResponse } from '@/types';
 
+const texts = uiData.content.banner;
+const positionLabels = texts.positionLabels as Record<string, string>;
+const activeLabels = texts.activeLabels;
+
 const columns: ColumnDef<Banner>[] = [
-  { accessorKey: 'title', header: '배너명' },
+  { accessorKey: 'title', header: texts.columns.title, cell: ({ row }) => (
+    <Link href={`/content/banners/${row.original.id}`} className="font-medium text-primary hover:underline">{row.getValue('title')}</Link>
+  ) },
   {
     accessorKey: 'position',
-    header: '위치',
+    header: texts.columns.position,
     cell: ({ row }) => {
-      const map: Record<string, string> = { TOP: '상단', MIDDLE: '중간', BOTTOM: '하단' };
-      return map[row.getValue('position') as string] ?? row.getValue('position');
+      return positionLabels[row.getValue('position') as string] ?? row.getValue('position');
     },
   },
-  { accessorKey: 'order', header: '순서' },
-  { accessorKey: 'startDate', header: '시작일', cell: ({ row }) => formatDate(row.getValue('startDate')) },
-  { accessorKey: 'endDate', header: '종료일', cell: ({ row }) => formatDate(row.getValue('endDate')) },
+  { accessorKey: 'order', header: texts.columns.order },
+  { accessorKey: 'startDate', header: texts.columns.startDate, cell: ({ row }) => formatDate(row.getValue('startDate')) },
+  { accessorKey: 'endDate', header: texts.columns.endDate, cell: ({ row }) => formatDate(row.getValue('endDate')) },
   {
     accessorKey: 'isActive',
-    header: '상태',
+    header: texts.columns.isActive,
     cell: ({ row }) => (
       <StatusBadge
-        label={row.getValue('isActive') ? '활성' : '비활성'}
+        label={row.getValue('isActive') ? activeLabels.active : activeLabels.inactive}
         variant={row.getValue('isActive') ? 'success' : 'secondary'}
       />
     ),
@@ -52,7 +59,7 @@ export function BannerListTable() {
 
   return (
     <div>
-      <DataTableToolbar searchValue={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder="배너명으로 검색" />
+      <DataTableToolbar searchValue={searchQuery} onSearchChange={setSearchQuery} searchPlaceholder={texts.searchPlaceholder} />
       <DataTable columns={columns} data={data} pageCount={pageCount} pagination={{ pageIndex: page, pageSize }} onPaginationChange={(updater) => { if (typeof updater === 'function') { const next = updater({ pageIndex: page, pageSize }); setPage(next.pageIndex); } }} sorting={sorting} onSortingChange={(updater) => { const next = typeof updater === 'function' ? updater(sorting) : updater; setSorting(next); }} isLoading={isLoading} />
       <DataTablePagination page={page} pageSize={pageSize} pageCount={pageCount} totalElements={totalElements} onPageChange={setPage} onPageSizeChange={setPageSize} />
     </div>

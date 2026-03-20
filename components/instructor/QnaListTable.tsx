@@ -6,7 +6,10 @@ import { DataTableToolbar } from '@/components/composed/DataTableToolbar';
 import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { useDataTable } from '@/hooks/useDataTable';
 import { qnaColumns } from '@/components/instructor/qnaColumns';
+import uiData from '@/data/uiData.json';
 import type { Qna, PaginatedResponse } from '@/types';
+
+const texts = uiData.instructor.qna;
 
 // TODO: Replace with actual API call to /api/admin/instructor/qna
 const mockQnaItems: Qna[] = [
@@ -66,7 +69,7 @@ export function QnaListTable() {
       <DataTableToolbar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="질문 또는 수강생 이름으로 검색"
+        searchPlaceholder={texts.searchPlaceholder}
       />
 
       <DataTable

@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
 import { CourseListTable } from '@/components/courses/CourseListTable';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.courses;
 
 export const metadata: Metadata = {
-  title: '강의 관리',
+  title: texts.pageTitle,
 };
 
 export default function CoursesPage() {
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">강의 관리</h1>
+      <h1 className="text-2xl font-bold">{texts.pageTitle}</h1>
       <CourseListTable />
     </div>
   );

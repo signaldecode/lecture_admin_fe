@@ -18,6 +18,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import type { Settlement } from '@/types';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.instructor.revenue;
 
 // TODO: Replace with actual API call to /api/admin/instructor/settlements
 const mockSettlements: Settlement[] = [
@@ -31,10 +34,7 @@ const statusVariantMap: Record<Settlement['status'], 'success' | 'warning'> = {
   PENDING: 'warning',
 };
 
-const statusLabelMap: Record<Settlement['status'], string> = {
-  SETTLED: '정산 완료',
-  PENDING: '정산 대기',
-};
+const statusLabelMap = texts.statusLabels as Record<Settlement['status'], string>;
 
 export function RevenueOverview() {
   // TODO: Replace with actual API call to /api/admin/instructor/revenue/summary
@@ -50,17 +50,17 @@ export function RevenueOverview() {
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-3">
         <StatCard
-          title="총 매출"
+          title={texts.totalRevenueTitle}
           value={formatCurrency(totalRevenue)}
           icon="DollarSign"
         />
         <StatCard
-          title="정산 완료"
+          title={texts.settledTitle}
           value={formatCurrency(settledAmount)}
           icon="CheckCircle"
         />
         <StatCard
-          title="정산 대기"
+          title={texts.pendingTitle}
           value={formatCurrency(pendingAmount)}
           icon="Clock"
         />
@@ -68,18 +68,18 @@ export function RevenueOverview() {
 
       <Card>
         <CardHeader>
-          <CardTitle>정산 내역</CardTitle>
+          <CardTitle>{texts.historyTitle}</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>정산 기간</TableHead>
-                <TableHead>강의 매출</TableHead>
-                <TableHead>수수료</TableHead>
-                <TableHead>정산 금액</TableHead>
-                <TableHead>상태</TableHead>
-                <TableHead>정산일</TableHead>
+                <TableHead>{texts.columns.period}</TableHead>
+                <TableHead>{texts.columns.courseSales}</TableHead>
+                <TableHead>{texts.columns.commission}</TableHead>
+                <TableHead>{texts.columns.netAmount}</TableHead>
+                <TableHead>{texts.columns.status}</TableHead>
+                <TableHead>{texts.columns.settledAt}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

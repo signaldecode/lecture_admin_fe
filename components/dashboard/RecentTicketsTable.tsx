@@ -18,6 +18,7 @@ import {
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { formatRelativeDate } from '@/lib/format';
 import dashboardData from '@/data/dashboardData.json';
+import uiData from '@/data/uiData.json';
 import type { Ticket, TicketStatus } from '@/types';
 
 interface RecentTicketsTableProps {
@@ -31,13 +32,8 @@ const statusVariantMap: Record<TicketStatus, 'warning' | 'default' | 'success' |
   CLOSED: 'secondary',
 };
 
-const statusLabelMap: Record<TicketStatus, string> = {
-  PENDING: '대기',
-  IN_PROGRESS: '처리중',
-  RESOLVED: '해결',
-  CLOSED: '종료',
-};
-
+const statusLabelMap = uiData.dashboard.recentTicketsStatusLabels as Record<TicketStatus, string>;
+const columnTexts = uiData.dashboard.recentTicketsColumns;
 const texts = dashboardData.tables.recentTickets;
 
 export function RecentTicketsTable({ tickets }: RecentTicketsTableProps) {
@@ -56,10 +52,10 @@ export function RecentTicketsTable({ tickets }: RecentTicketsTableProps) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>회원</TableHead>
-              <TableHead>제목</TableHead>
-              <TableHead>상태</TableHead>
-              <TableHead>등록일</TableHead>
+              <TableHead>{columnTexts.memberName}</TableHead>
+              <TableHead>{columnTexts.title}</TableHead>
+              <TableHead>{columnTexts.status}</TableHead>
+              <TableHead>{columnTexts.createdAt}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

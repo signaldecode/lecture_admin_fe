@@ -11,7 +11,10 @@ import { useRole } from '@/hooks/useRole';
 import { getCourseColumns } from '@/components/courses/columns';
 import { apiClient } from '@/lib/api';
 import { PlusCircle } from 'lucide-react';
+import uiData from '@/data/uiData.json';
 import type { Course, PaginatedResponse } from '@/types';
+
+const texts = uiData.courses;
 
 // Mock data for development
 const mockCourses: Course[] = [
@@ -76,14 +79,14 @@ export function CourseListTable() {
       <DataTableToolbar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="강의명으로 검색"
+        searchPlaceholder={texts.searchPlaceholder}
       >
         <Link
           href="/courses/new"
           className="inline-flex h-7 items-center gap-1 rounded-[min(var(--radius-md),12px)] bg-primary px-2.5 text-[0.8rem] font-medium text-primary-foreground hover:bg-primary/80"
         >
           <PlusCircle className="size-3.5" />
-          강의 등록
+          {texts.createButton}
         </Link>
       </DataTableToolbar>
 

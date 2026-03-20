@@ -56,7 +56,7 @@ export function CouponForm() {
     defaultValues: {
       name: '',
       code: '',
-      type: undefined,
+      type: '' as CouponFormValues['type'],
       discountValue: '',
       maxDiscount: '',
       minPurchase: '',

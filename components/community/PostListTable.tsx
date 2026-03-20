@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
+import Link from 'next/link';
 import type { ColumnDef } from '@tanstack/react-table';
 import { DataTable } from '@/components/composed/DataTable';
 import { DataTableToolbar } from '@/components/composed/DataTableToolbar';
@@ -8,7 +9,10 @@ import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDate, formatNumber } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { CommunityPost, PostStatus, PaginatedResponse } from '@/types';
+
+const texts = uiData.community.posts;
 
 const statusVariantMap: Record<PostStatus, 'success' | 'secondary' | 'destructive'> = {
   PUBLISHED: 'success',
@@ -16,36 +20,37 @@ const statusVariantMap: Record<PostStatus, 'success' | 'secondary' | 'destructiv
   DELETED: 'destructive',
 };
 
-const statusLabelMap: Record<PostStatus, string> = {
-  PUBLISHED: '공개',
-  UNPUBLISHED: '비공개',
-  DELETED: '삭제',
-};
+const statusLabelMap = texts.statusLabels as Record<PostStatus, string>;
 
 const postColumns: ColumnDef<CommunityPost>[] = [
   {
     accessorKey: 'title',
-    header: '제목',
+    header: texts.columns.title,
     cell: ({ row }) => (
-      <span className="font-medium">{row.getValue('title')}</span>
+      <Link
+        href={`/community/posts/${row.original.id}`}
+        className="font-medium text-primary hover:underline"
+      >
+        {row.getValue('title')}
+      </Link>
     ),
   },
   {
     accessorKey: 'authorName',
-    header: '작성자',
+    header: texts.columns.authorName,
   },
   {
     accessorKey: 'categoryName',
-    header: '카테고리',
+    header: texts.columns.categoryName,
   },
   {
     accessorKey: 'commentCount',
-    header: '댓글',
+    header: texts.columns.commentCount,
     cell: ({ row }) => formatNumber(row.getValue('commentCount')),
   },
   {
     accessorKey: 'reportCount',
-    header: '신고',
+    header: texts.columns.reportCount,
     cell: ({ row }) => {
       const count = row.getValue('reportCount') as number;
       return (
@@ -57,7 +62,7 @@ const postColumns: ColumnDef<CommunityPost>[] = [
   },
   {
     accessorKey: 'status',
-    header: '상태',
+    header: texts.columns.status,
     cell: ({ row }) => {
       const status = row.getValue('status') as PostStatus;
       return (
@@ -70,7 +75,7 @@ const postColumns: ColumnDef<CommunityPost>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: '작성일',
+    header: texts.columns.createdAt,
     cell: ({ row }) => formatDate(row.getValue('createdAt')),
   },
 ];
@@ -130,7 +135,7 @@ export function PostListTable() {
       <DataTableToolbar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="제목으로 검색"
+        searchPlaceholder={texts.searchPlaceholder}
       />
 
       <DataTable

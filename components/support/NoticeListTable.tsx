@@ -1,24 +1,33 @@
 'use client';
 
 import { useCallback } from 'react';
+import Link from 'next/link';
 import type { ColumnDef } from '@tanstack/react-table';
 import { DataTable } from '@/components/composed/DataTable';
 import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDate, formatNumber } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { Notice, PaginatedResponse } from '@/types';
+
+const texts = uiData.support.notices;
 
 const noticeColumns: ColumnDef<Notice>[] = [
   {
     accessorKey: 'title',
-    header: '제목',
+    header: texts.columns.title,
     cell: ({ row }) => (
-      <span className="font-medium">{row.getValue('title')}</span>
+      <Link
+        href={`/support/notices/${row.original.id}`}
+        className="font-medium text-primary hover:underline"
+      >
+        {row.getValue('title')}
+      </Link>
     ),
   },
   {
     accessorKey: 'isPinned',
-    header: '고정',
+    header: texts.columns.isPinned,
     cell: ({ row }) => {
       const isPinned = row.getValue('isPinned') as boolean;
       return <span>{isPinned ? '\uD83D\uDCCC' : '-'}</span>;
@@ -26,17 +35,17 @@ const noticeColumns: ColumnDef<Notice>[] = [
   },
   {
     accessorKey: 'viewCount',
-    header: '조회수',
+    header: texts.columns.viewCount,
     cell: ({ row }) => formatNumber(row.getValue('viewCount')),
   },
   {
     accessorKey: 'createdAt',
-    header: '작성일',
+    header: texts.columns.createdAt,
     cell: ({ row }) => formatDate(row.getValue('createdAt')),
   },
   {
     accessorKey: 'updatedAt',
-    header: '수정일',
+    header: texts.columns.updatedAt,
     cell: ({ row }) => formatDate(row.getValue('updatedAt')),
   },
 ];

@@ -13,14 +13,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.instructor.profile;
+const commonTexts = uiData.common;
 
 const profileSchema = z.object({
-  name: z.string().min(1, '이름을 입력해주세요.'),
-  bio: z.string().min(1, '소개를 입력해주세요.'),
-  profileImage: z.string().url('올바른 URL을 입력해주세요.').or(z.literal('')).optional(),
-  linkedin: z.string().url('올바른 URL을 입력해주세요.').or(z.literal('')).optional(),
-  twitter: z.string().url('올바른 URL을 입력해주세요.').or(z.literal('')).optional(),
-  homepage: z.string().url('올바른 URL을 입력해주세요.').or(z.literal('')).optional(),
+  name: z.string().min(1, texts.validation.nameRequired),
+  bio: z.string().min(1, texts.validation.bioRequired),
+  profileImage: z.string().url(texts.validation.urlInvalid).or(z.literal('')).optional(),
+  linkedin: z.string().url(texts.validation.urlInvalid).or(z.literal('')).optional(),
+  twitter: z.string().url(texts.validation.urlInvalid).or(z.literal('')).optional(),
+  homepage: z.string().url(texts.validation.urlInvalid).or(z.literal('')).optional(),
 });
 
 type ProfileFormValues = z.infer<typeof profileSchema>;
@@ -53,15 +57,15 @@ export function InstructorProfileForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>프로필 수정</CardTitle>
+        <CardTitle>{texts.formTitle}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="name">이름</Label>
+            <Label htmlFor="name">{texts.nameLabel}</Label>
             <Input
               id="name"
-              placeholder="이름을 입력하세요"
+              placeholder={texts.namePlaceholder}
               {...register('name')}
             />
             {errors.name && (
@@ -70,11 +74,12 @@ export function InstructorProfileForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="bio">소개</Label>
+            <Label htmlFor="bio">{texts.bioLabel}</Label>
             <Textarea
               id="bio"
-              placeholder="강사 소개를 입력하세요"
+              placeholder={texts.bioPlaceholder}
               rows={5}
+              className='resize-none'
               {...register('bio')}
             />
             {errors.bio && (
@@ -83,7 +88,7 @@ export function InstructorProfileForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="profileImage">프로필 이미지 URL</Label>
+            <Label htmlFor="profileImage">{texts.profileImageLabel}</Label>
             <Input
               id="profileImage"
               placeholder="https://example.com/image.jpg"
@@ -120,7 +125,7 @@ export function InstructorProfileForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="homepage">홈페이지</Label>
+              <Label htmlFor="homepage">{texts.homepageLabel}</Label>
               <Input
                 id="homepage"
                 placeholder="https://example.com"
@@ -134,7 +139,7 @@ export function InstructorProfileForm() {
 
           <div className="flex gap-2">
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? '저장 중...' : '저장'}
+              {isSubmitting ? texts.submittingButton : commonTexts.save}
             </Button>
           </div>
         </form>

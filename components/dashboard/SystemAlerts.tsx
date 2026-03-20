@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
 import dashboardData from '@/data/dashboardData.json';
+import uiData from '@/data/uiData.json';
 
 interface SystemAlertsProps {
   pendingRefunds: number;
@@ -10,6 +11,7 @@ interface SystemAlertsProps {
 }
 
 const alertTexts = dashboardData.superAdmin.alerts;
+const dashboardTexts = uiData.dashboard;
 
 export function SystemAlerts({ pendingRefunds, pendingTickets }: SystemAlertsProps) {
   const alerts = [
@@ -24,7 +26,7 @@ export function SystemAlerts({ pendingRefunds, pendingTickets }: SystemAlertsPro
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
           <AlertTriangle className="size-4 text-yellow-500" />
-          알림
+          {dashboardTexts.alertTitle}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -36,7 +38,7 @@ export function SystemAlerts({ pendingRefunds, pendingTickets }: SystemAlertsPro
             >
               <span className="text-sm">{alert.label}</span>
               <span className="text-sm font-bold text-yellow-700 dark:text-yellow-400">
-                {alert.count}건
+                {alert.count}{dashboardTexts.alertCountUnit}
               </span>
             </div>
           ))}

@@ -15,10 +15,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import uiData from '@/data/uiData.json';
+
+const texts = uiData.support.noticeForm;
+const commonTexts = uiData.common;
 
 const noticeSchema = z.object({
-  title: z.string().min(1, '제목을 입력해주세요.'),
-  content: z.string().min(1, '내용을 입력해주세요.'),
+  title: z.string().min(1, texts.validation.titleRequired),
+  content: z.string().min(1, texts.validation.contentRequired),
   isPinned: z.boolean(),
 });
 
@@ -51,15 +55,15 @@ export function NoticeForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>공지 작성</CardTitle>
+        <CardTitle>{texts.formTitle}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="title">제목</Label>
+            <Label htmlFor="title">{texts.titleLabel}</Label>
             <Input
               id="title"
-              placeholder="공지 제목을 입력하세요"
+              placeholder={texts.titlePlaceholder}
               {...register('title')}
             />
             {errors.title && (
@@ -68,10 +72,10 @@ export function NoticeForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="content">내용</Label>
+            <Label htmlFor="content">{texts.contentLabel}</Label>
             <Textarea
               id="content"
-              placeholder="공지 내용을 입력하세요"
+              placeholder={texts.contentPlaceholder}
               rows={8}
               {...register('content')}
             />
@@ -87,20 +91,20 @@ export function NoticeForm() {
               onCheckedChange={(checked) => setValue('isPinned', !!checked)}
             />
             <Label htmlFor="isPinned" className="cursor-pointer">
-              상단 고정
+              {texts.isPinnedLabel}
             </Label>
           </div>
 
           <div className="flex gap-2">
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? '등록 중...' : '등록'}
+              {isSubmitting ? texts.submittingButton : texts.submitButton}
             </Button>
             <Button
               type="button"
               variant="outline"
               onClick={() => router.back()}
             >
-              취소
+              {commonTexts.cancel}
             </Button>
           </div>
         </form>

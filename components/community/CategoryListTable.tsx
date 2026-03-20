@@ -6,19 +6,22 @@ import { DataTable } from '@/components/composed/DataTable';
 import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatNumber } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { CommunityCategory, PaginatedResponse } from '@/types';
+
+const texts = uiData.community.categories;
 
 const categoryColumns: ColumnDef<CommunityCategory>[] = [
   {
     accessorKey: 'name',
-    header: '카테고리명',
+    header: texts.columns.name,
     cell: ({ row }) => (
       <span className="font-medium">{row.getValue('name')}</span>
     ),
   },
   {
     accessorKey: 'slug',
-    header: '슬러그',
+    header: texts.columns.slug,
     cell: ({ row }) => (
       <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
         {row.getValue('slug')}
@@ -27,12 +30,12 @@ const categoryColumns: ColumnDef<CommunityCategory>[] = [
   },
   {
     accessorKey: 'postCount',
-    header: '게시글 수',
+    header: texts.columns.postCount,
     cell: ({ row }) => formatNumber(row.getValue('postCount')),
   },
   {
     accessorKey: 'order',
-    header: '정렬 순서',
+    header: texts.columns.order,
   },
 ];
 

@@ -9,7 +9,10 @@ import { DataTablePagination } from '@/components/composed/DataTablePagination';
 import { StatusBadge } from '@/components/composed/StatusBadge';
 import { useDataTable } from '@/hooks/useDataTable';
 import { formatDate } from '@/lib/format';
+import uiData from '@/data/uiData.json';
 import type { SupportTicket, TicketStatus, PaginatedResponse } from '@/types';
+
+const texts = uiData.support.tickets;
 
 const statusVariantMap: Record<TicketStatus, 'warning' | 'default' | 'success' | 'secondary'> = {
   PENDING: 'warning',
@@ -18,17 +21,12 @@ const statusVariantMap: Record<TicketStatus, 'warning' | 'default' | 'success' |
   CLOSED: 'secondary',
 };
 
-const statusLabelMap: Record<TicketStatus, string> = {
-  PENDING: '대기',
-  IN_PROGRESS: '처리중',
-  RESOLVED: '해결',
-  CLOSED: '종료',
-};
+const statusLabelMap = texts.statusLabels as Record<TicketStatus, string>;
 
 const ticketColumns: ColumnDef<SupportTicket>[] = [
   {
     accessorKey: 'title',
-    header: '제목',
+    header: texts.columns.title,
     cell: ({ row }) => (
       <Link
         href={`/support/tickets/${row.original.id}`}
@@ -40,11 +38,11 @@ const ticketColumns: ColumnDef<SupportTicket>[] = [
   },
   {
     accessorKey: 'memberName',
-    header: '회원',
+    header: texts.columns.memberName,
   },
   {
     accessorKey: 'status',
-    header: '상태',
+    header: texts.columns.status,
     cell: ({ row }) => {
       const status = row.getValue('status') as TicketStatus;
       return (
@@ -57,7 +55,7 @@ const ticketColumns: ColumnDef<SupportTicket>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: '접수일',
+    header: texts.columns.createdAt,
     cell: ({ row }) => formatDate(row.getValue('createdAt')),
   },
 ];
@@ -121,7 +119,7 @@ export function TicketListTable() {
       <DataTableToolbar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="제목 또는 회원명으로 검색"
+        searchPlaceholder={texts.searchPlaceholder}
       />
 
       <DataTable

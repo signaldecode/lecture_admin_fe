@@ -23,11 +23,7 @@ const statusVariantMap: Record<QnaStatus, 'warning' | 'success' | 'secondary'> =
   CLOSED: 'secondary',
 };
 
-const statusLabelMap: Record<QnaStatus, string> = {
-  PENDING: '대기',
-  ANSWERED: '답변완료',
-  CLOSED: '종료',
-};
+const statusLabelMap = qnaTexts.statusLabels as Record<QnaStatus, string>;
 
 export function QnaReplyPanel({ qna }: QnaReplyPanelProps) {
   const [answer, setAnswer] = useState(qna.answer ?? '');
@@ -85,6 +81,7 @@ export function QnaReplyPanel({ qna }: QnaReplyPanelProps) {
             <Label htmlFor="qna-answer">{qnaTexts.answerLabel}</Label>
             <Textarea
               id="qna-answer"
+              className="resize-none"
               placeholder={qnaTexts.answerPlaceholder}
               rows={6}
               value={answer}
