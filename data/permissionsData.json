@@ -1,0 +1,40 @@
+{
+  "routes": [
+    { "path": "/", "roles": ["SUPER_ADMIN", "INSTRUCTOR", "CS_AGENT"] },
+    { "path": "/members", "roles": ["SUPER_ADMIN", "CS_AGENT"] },
+    { "path": "/courses", "roles": ["SUPER_ADMIN", "INSTRUCTOR"] },
+    { "path": "/instructor", "roles": ["INSTRUCTOR"] },
+    { "path": "/orders", "roles": ["SUPER_ADMIN"] },
+    { "path": "/coupons", "roles": ["SUPER_ADMIN"] },
+    { "path": "/community", "roles": ["SUPER_ADMIN"] },
+    { "path": "/support", "roles": ["SUPER_ADMIN", "CS_AGENT"] },
+    { "path": "/content", "roles": ["SUPER_ADMIN"] },
+    { "path": "/analytics", "roles": ["SUPER_ADMIN", "INSTRUCTOR"] },
+    { "path": "/settings", "roles": ["SUPER_ADMIN"] }
+  ],
+  "actions": {
+    "member.view": ["SUPER_ADMIN", "CS_AGENT"],
+    "member.edit": ["SUPER_ADMIN"],
+    "member.adjustPoint": ["SUPER_ADMIN"],
+    "member.issueCoupon": ["SUPER_ADMIN"],
+    "course.create": ["SUPER_ADMIN", "INSTRUCTOR"],
+    "course.edit": ["SUPER_ADMIN", "INSTRUCTOR"],
+    "course.delete": ["SUPER_ADMIN"],
+    "course.publish": ["SUPER_ADMIN"],
+    "course.requestPublish": ["INSTRUCTOR"],
+    "order.view": ["SUPER_ADMIN"],
+    "order.refund": ["SUPER_ADMIN"],
+    "coupon.create": ["SUPER_ADMIN"],
+    "coupon.delete": ["SUPER_ADMIN"],
+    "ticket.reply": ["SUPER_ADMIN", "CS_AGENT"],
+    "notice.create": ["SUPER_ADMIN", "CS_AGENT"],
+    "notice.edit": ["SUPER_ADMIN", "CS_AGENT"],
+    "faq.create": ["SUPER_ADMIN", "CS_AGENT"],
+    "settings.manage": ["SUPER_ADMIN"]
+  },
+  "roleDefaultPaths": {
+    "SUPER_ADMIN": "/",
+    "INSTRUCTOR": "/",
+    "CS_AGENT": "/support/tickets"
+  }
+}

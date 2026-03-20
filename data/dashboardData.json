@@ -1,0 +1,48 @@
+{
+  "superAdmin": {
+    "summary": [
+      { "key": "totalMembers", "label": "총 회원수", "unit": "명", "icon": "Users" },
+      { "key": "totalRevenue", "label": "총 매출", "unit": "원", "icon": "DollarSign" },
+      { "key": "totalCourses", "label": "총 강의수", "unit": "개", "icon": "BookOpen" },
+      { "key": "totalStudents", "label": "총 수강생", "unit": "명", "icon": "UserCheck" }
+    ],
+    "alerts": {
+      "pendingRefundsLabel": "환불 대기",
+      "pendingTicketsLabel": "미답변 문의"
+    }
+  },
+  "instructor": {
+    "summary": [
+      { "key": "myStudents", "label": "내 수강생", "unit": "명", "icon": "UserCheck" },
+      { "key": "myRevenue", "label": "내 매출", "unit": "원", "icon": "DollarSign" },
+      { "key": "myCourses", "label": "내 강의", "unit": "개", "icon": "BookOpen" },
+      { "key": "completionRate", "label": "완료율", "unit": "%", "icon": "CheckCircle" }
+    ]
+  },
+  "csAgent": {
+    "summary": [
+      { "key": "pendingTickets", "label": "미답변 문의", "unit": "건", "icon": "Mail" },
+      { "key": "todayTickets", "label": "오늘 접수", "unit": "건", "icon": "Bell" },
+      { "key": "answeredToday", "label": "오늘 답변", "unit": "건", "icon": "CheckCircle" }
+    ]
+  },
+  "charts": {
+    "revenueChart": {
+      "title": "매출 추이",
+      "dataKey": "value",
+      "xAxisKey": "date",
+      "color": "var(--chart-1)"
+    },
+    "enrollmentChart": {
+      "title": "수강 현황",
+      "dataKey": "value",
+      "xAxisKey": "date",
+      "color": "var(--chart-2)"
+    }
+  },
+  "tables": {
+    "recentOrders": { "title": "최근 주문", "viewAllLabel": "전체 보기", "viewAllPath": "/orders" },
+    "recentTickets": { "title": "최근 문의", "viewAllLabel": "전체 보기", "viewAllPath": "/support/tickets" },
+    "recentQna": { "title": "최근 Q&A", "viewAllLabel": "전체 보기", "viewAllPath": "/instructor/qna" }
+  }
+}

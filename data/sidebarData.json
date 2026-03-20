@@ -1,0 +1,240 @@
+{
+  "menu": [
+    {
+      "key": "dashboard",
+      "label": "대시보드",
+      "path": "/",
+      "icon": "LayoutDashboard",
+      "roles": ["SUPER_ADMIN", "INSTRUCTOR", "CS_AGENT"]
+    },
+    {
+      "key": "members",
+      "label": "회원 관리",
+      "path": "/members",
+      "icon": "Users",
+      "roles": ["SUPER_ADMIN", "CS_AGENT"]
+    },
+    {
+      "key": "courses",
+      "label": "강의 관리",
+      "path": "/courses",
+      "icon": "BookOpen",
+      "roles": ["SUPER_ADMIN", "INSTRUCTOR"],
+      "children": [
+        {
+          "key": "courses-list",
+          "label": "강의 목록",
+          "path": "/courses",
+          "icon": "List",
+          "roles": ["SUPER_ADMIN", "INSTRUCTOR"]
+        },
+        {
+          "key": "courses-new",
+          "label": "강의 등록",
+          "path": "/courses/new",
+          "icon": "PlusCircle",
+          "roles": ["SUPER_ADMIN", "INSTRUCTOR"]
+        }
+      ]
+    },
+    {
+      "key": "instructor",
+      "label": "강사 메뉴",
+      "path": "/instructor",
+      "icon": "GraduationCap",
+      "roles": ["INSTRUCTOR"],
+      "children": [
+        {
+          "key": "instructor-students",
+          "label": "내 수강생",
+          "path": "/instructor/students",
+          "icon": "UserCheck",
+          "roles": ["INSTRUCTOR"]
+        },
+        {
+          "key": "instructor-qna",
+          "label": "Q&A 관리",
+          "path": "/instructor/qna",
+          "icon": "MessageCircleQuestion",
+          "roles": ["INSTRUCTOR"]
+        },
+        {
+          "key": "instructor-reviews",
+          "label": "수강평",
+          "path": "/instructor/reviews",
+          "icon": "Star",
+          "roles": ["INSTRUCTOR"]
+        },
+        {
+          "key": "instructor-revenue",
+          "label": "매출/정산",
+          "path": "/instructor/revenue",
+          "icon": "DollarSign",
+          "roles": ["INSTRUCTOR"]
+        },
+        {
+          "key": "instructor-publish",
+          "label": "발행 요청",
+          "path": "/instructor/publish-requests",
+          "icon": "SendHorizonal",
+          "roles": ["INSTRUCTOR"]
+        },
+        {
+          "key": "instructor-profile",
+          "label": "강사 프로필",
+          "path": "/instructor/profile",
+          "icon": "UserCog",
+          "roles": ["INSTRUCTOR"]
+        }
+      ]
+    },
+    {
+      "key": "orders",
+      "label": "주문/결제",
+      "path": "/orders",
+      "icon": "CreditCard",
+      "roles": ["SUPER_ADMIN"]
+    },
+    {
+      "key": "coupons",
+      "label": "쿠폰/포인트",
+      "path": "/coupons",
+      "icon": "Ticket",
+      "roles": ["SUPER_ADMIN"]
+    },
+    {
+      "key": "community",
+      "label": "커뮤니티",
+      "path": "/community",
+      "icon": "MessageSquare",
+      "roles": ["SUPER_ADMIN"],
+      "children": [
+        {
+          "key": "community-posts",
+          "label": "게시글 관리",
+          "path": "/community/posts",
+          "icon": "FileText",
+          "roles": ["SUPER_ADMIN"]
+        },
+        {
+          "key": "community-reports",
+          "label": "신고 관리",
+          "path": "/community/reports",
+          "icon": "Flag",
+          "roles": ["SUPER_ADMIN"]
+        },
+        {
+          "key": "community-categories",
+          "label": "카테고리",
+          "path": "/community/categories",
+          "icon": "FolderOpen",
+          "roles": ["SUPER_ADMIN"]
+        }
+      ]
+    },
+    {
+      "key": "support",
+      "label": "고객센터",
+      "path": "/support",
+      "icon": "Headphones",
+      "roles": ["SUPER_ADMIN", "CS_AGENT"],
+      "children": [
+        {
+          "key": "support-tickets",
+          "label": "1:1 문의",
+          "path": "/support/tickets",
+          "icon": "Mail",
+          "roles": ["SUPER_ADMIN", "CS_AGENT"]
+        },
+        {
+          "key": "support-notices",
+          "label": "공지사항",
+          "path": "/support/notices",
+          "icon": "Bell",
+          "roles": ["SUPER_ADMIN", "CS_AGENT"]
+        },
+        {
+          "key": "support-faq",
+          "label": "FAQ",
+          "path": "/support/faq",
+          "icon": "CircleHelp",
+          "roles": ["SUPER_ADMIN", "CS_AGENT"]
+        }
+      ]
+    },
+    {
+      "key": "content",
+      "label": "콘텐츠",
+      "path": "/content",
+      "icon": "Image",
+      "roles": ["SUPER_ADMIN"],
+      "children": [
+        {
+          "key": "content-banners",
+          "label": "배너 관리",
+          "path": "/content/banners",
+          "icon": "PanelTop",
+          "roles": ["SUPER_ADMIN"]
+        },
+        {
+          "key": "content-popups",
+          "label": "팝업 관리",
+          "path": "/content/popups",
+          "icon": "AppWindow",
+          "roles": ["SUPER_ADMIN"]
+        },
+        {
+          "key": "content-terms",
+          "label": "약관 관리",
+          "path": "/content/terms",
+          "icon": "ScrollText",
+          "roles": ["SUPER_ADMIN"]
+        }
+      ]
+    },
+    {
+      "key": "analytics",
+      "label": "통계/분석",
+      "path": "/analytics",
+      "icon": "BarChart3",
+      "roles": ["SUPER_ADMIN", "INSTRUCTOR"]
+    },
+    {
+      "key": "settings",
+      "label": "시스템 설정",
+      "path": "/settings",
+      "icon": "Settings",
+      "roles": ["SUPER_ADMIN"],
+      "children": [
+        {
+          "key": "settings-admins",
+          "label": "관리자 계정",
+          "path": "/settings/admins",
+          "icon": "ShieldCheck",
+          "roles": ["SUPER_ADMIN"]
+        },
+        {
+          "key": "settings-roles",
+          "label": "역할/권한",
+          "path": "/settings/roles",
+          "icon": "Lock",
+          "roles": ["SUPER_ADMIN"]
+        },
+        {
+          "key": "settings-approvals",
+          "label": "발행 승인",
+          "path": "/settings/approvals",
+          "icon": "CheckCircle",
+          "roles": ["SUPER_ADMIN"]
+        },
+        {
+          "key": "settings-logs",
+          "label": "활동 로그",
+          "path": "/settings/logs",
+          "icon": "ScrollText",
+          "roles": ["SUPER_ADMIN"]
+        }
+      ]
+    }
+  ]
+}

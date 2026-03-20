@@ -1,0 +1,275 @@
+{
+  "login": {
+    "title": "LMS 관리자 로그인",
+    "description": "관리자 계정으로 로그인하세요",
+    "emailLabel": "이메일",
+    "emailPlaceholder": "admin@example.com",
+    "passwordLabel": "비밀번호",
+    "passwordPlaceholder": "비밀번호를 입력하세요",
+    "submitButton": "로그인",
+    "loadingButton": "로그인 중...",
+    "errors": {
+      "emailRequired": "이메일을 입력해주세요.",
+      "emailInvalid": "올바른 이메일 형식이 아닙니다.",
+      "passwordRequired": "비밀번호를 입력해주세요.",
+      "passwordMinLength": "비밀번호는 최소 4자 이상이어야 합니다.",
+      "invalidCredentials": "이메일 또는 비밀번호가 올바르지 않습니다.",
+      "serverError": "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
+      "networkError": "네트워크 연결을 확인해주세요."
+    }
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다.",
+    "confirm": "확인",
+    "cancel": "취소",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "수정",
+    "create": "생성",
+    "search": "검색",
+    "searchPlaceholder": "검색어를 입력하세요",
+    "noResults": "결과가 없습니다.",
+    "actions": "작업",
+    "status": "상태",
+    "viewAll": "전체 보기",
+    "back": "돌아가기",
+    "logout": "로그아웃",
+    "profile": "프로필"
+  },
+  "forbidden": {
+    "title": "접근 권한 없음",
+    "description": "이 페이지에 접근할 권한이 없습니다.",
+    "backButton": "돌아가기"
+  },
+  "unauthorized": {
+    "title": "인증 필요",
+    "description": "로그인이 필요합니다.",
+    "loginButton": "로그인하기"
+  },
+  "header": {
+    "logoAlt": "LMS Admin 로고",
+    "menuToggleAriaLabel": "메뉴 열기/닫기",
+    "userMenuAriaLabel": "사용자 메뉴",
+    "logoutAriaLabel": "로그아웃"
+  },
+  "sidebar": {
+    "logoText": "LMS Admin",
+    "logoAriaLabel": "LMS 관리자 대시보드 홈으로 이동",
+    "collapseAriaLabel": "사이드바 접기/펼치기"
+  },
+  "orders": {
+    "pageTitle": "주문/결제",
+    "detailTitle": "주문 상세",
+    "searchPlaceholder": "회원명 또는 강의명으로 검색",
+    "columns": {
+      "id": "주문번호",
+      "memberName": "회원명",
+      "courseTitle": "강의명",
+      "amount": "결제금액",
+      "status": "상태",
+      "paymentMethod": "결제수단",
+      "createdAt": "결제일"
+    },
+    "statusLabels": {
+      "COMPLETED": "결제완료",
+      "CANCELLED": "취소",
+      "REFUND_REQUESTED": "환불요청",
+      "REFUNDED": "환불완료"
+    },
+    "detail": {
+      "cardTitle": "주문 정보",
+      "memberEmail": "회원 이메일",
+      "refundSection": "환불 처리",
+      "refundDescription": "이 주문에 대한 환불 요청이 접수되었습니다.",
+      "approveRefund": "환불 승인",
+      "rejectRefund": "환불 거절"
+    }
+  },
+  "coupons": {
+    "pageTitle": "쿠폰 관리",
+    "createButton": "쿠폰 생성",
+    "createTitle": "쿠폰 생성",
+    "searchPlaceholder": "쿠폰명 또는 코드로 검색",
+    "columns": {
+      "code": "쿠폰 코드",
+      "name": "쿠폰명",
+      "type": "유형",
+      "discountValue": "할인 값",
+      "usage": "사용량",
+      "expiresAt": "만료일",
+      "status": "상태"
+    },
+    "typeLabels": {
+      "PERCENT": "정률(%)",
+      "FIXED": "정액(원)"
+    },
+    "statusLabels": {
+      "ACTIVE": "활성",
+      "EXPIRED": "만료",
+      "USED_OUT": "소진"
+    },
+    "form": {
+      "nameLabel": "쿠폰명",
+      "namePlaceholder": "쿠폰명을 입력하세요",
+      "codeLabel": "쿠폰 코드",
+      "codePlaceholder": "영문 대문자 코드를 입력하세요",
+      "typeLabel": "할인 유형",
+      "typePlaceholder": "할인 유형을 선택하세요",
+      "discountValueLabel": "할인 값",
+      "discountValuePlaceholder": "할인 값을 입력하세요",
+      "maxDiscountLabel": "최대 할인 금액",
+      "maxDiscountPlaceholder": "최대 할인 금액 (선택)",
+      "minPurchaseLabel": "최소 결제 금액",
+      "minPurchasePlaceholder": "최소 결제 금액 (선택)",
+      "usageLimitLabel": "사용 제한 수",
+      "usageLimitPlaceholder": "사용 제한 수 (선택)",
+      "expiresAtLabel": "만료일",
+      "submitButton": "쿠폰 생성"
+    },
+    "validation": {
+      "nameRequired": "쿠폰명을 입력해주세요.",
+      "codeRequired": "쿠폰 코드를 입력해주세요.",
+      "codeUppercase": "쿠폰 코드는 영문 대문자만 가능합니다.",
+      "typeRequired": "할인 유형을 선택해주세요.",
+      "discountValueRequired": "할인 값을 입력해주세요.",
+      "discountValueMin": "할인 값은 0 이상이어야 합니다.",
+      "expiresAtRequired": "만료일을 선택해주세요."
+    },
+    "bulkIssue": {
+      "title": "쿠폰 대량 발급",
+      "description": "대상 등급을 선택하고 쿠폰 코드를 입력하세요.",
+      "targetGradeLabel": "대상 등급",
+      "targetGradePlaceholder": "등급을 선택하세요",
+      "couponCodeLabel": "쿠폰 코드",
+      "couponCodePlaceholder": "발급할 쿠폰 코드를 입력하세요",
+      "submitButton": "대량 발급",
+      "gradeOptions": {
+        "ALL": "전체",
+        "BASIC": "BASIC",
+        "SILVER": "SILVER",
+        "GOLD": "GOLD",
+        "PLATINUM": "PLATINUM"
+      },
+      "validation": {
+        "gradeRequired": "대상 등급을 선택해주세요.",
+        "codeRequired": "쿠폰 코드를 입력해주세요."
+      }
+    }
+  },
+  "instructor": {
+    "qna": {
+      "questionLabel": "질문",
+      "answerLabel": "답변",
+      "answerPlaceholder": "답변을 입력하세요",
+      "submitButton": "답변 등록",
+      "updateButton": "답변 수정",
+      "studentLabel": "학생",
+      "courseLabel": "강의",
+      "createdAtLabel": "질문일",
+      "statusLabel": "상태"
+    },
+    "review": {
+      "ratingLabel": "평점",
+      "contentLabel": "리뷰 내용",
+      "replyLabel": "강사 답글",
+      "replyPlaceholder": "답글을 입력하세요",
+      "submitButton": "답글 등록",
+      "updateButton": "답글 수정",
+      "studentLabel": "학생",
+      "courseLabel": "강의"
+    }
+  },
+  "refund": {
+    "title": "환불 처리",
+    "description": "주문에 대한 환불을 처리합니다.",
+    "orderIdLabel": "주문번호",
+    "courseTitleLabel": "강의명",
+    "amountLabel": "환불 금액",
+    "approveButton": "환불 승인",
+    "rejectButton": "환불 거절"
+  },
+  "community": {
+    "post": {
+      "titleLabel": "제목",
+      "authorLabel": "작성자",
+      "categoryLabel": "카테고리",
+      "statusLabel": "상태",
+      "createdAtLabel": "작성일",
+      "contentLabel": "내용",
+      "unpublishButton": "비공개",
+      "publishButton": "공개",
+      "deleteButton": "삭제",
+      "deleteConfirmTitle": "게시글 삭제",
+      "deleteConfirmDescription": "이 게시글을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "statusLabels": {
+        "PUBLISHED": "공개",
+        "UNPUBLISHED": "비공개",
+        "DELETED": "삭제됨"
+      }
+    },
+    "report": {
+      "title": "신고 처리",
+      "description": "신고된 게시글에 대한 조치를 선택하세요.",
+      "postTitleLabel": "게시글",
+      "reasonLabel": "신고 사유",
+      "reporterLabel": "신고자",
+      "warnButton": "경고",
+      "deleteButton": "삭제",
+      "suspendButton": "정지"
+    }
+  },
+  "content": {
+    "banner": {
+      "createTitle": "배너 생성",
+      "editTitle": "배너 수정",
+      "titleLabel": "제목",
+      "titlePlaceholder": "배너 제목을 입력하세요",
+      "imageUrlLabel": "이미지 URL",
+      "imageUrlPlaceholder": "https://example.com/banner.jpg",
+      "linkUrlLabel": "링크 URL (선택)",
+      "linkUrlPlaceholder": "https://example.com",
+      "positionLabel": "위치",
+      "positionPlaceholder": "위치를 선택하세요",
+      "positionOptions": {
+        "TOP": "상단",
+        "MIDDLE": "중단",
+        "BOTTOM": "하단"
+      },
+      "startDateLabel": "시작일",
+      "endDateLabel": "종료일",
+      "orderLabel": "순서",
+      "orderPlaceholder": "표시 순서를 입력하세요",
+      "submitCreateButton": "배너 생성",
+      "submitEditButton": "배너 수정",
+      "validation": {
+        "titleRequired": "배너 제목을 입력해주세요.",
+        "imageUrlRequired": "이미지 URL을 입력해주세요.",
+        "positionRequired": "위치를 선택해주세요.",
+        "startDateRequired": "시작일을 선택해주세요.",
+        "endDateRequired": "종료일을 선택해주세요.",
+        "orderRequired": "순서를 입력해주세요."
+      }
+    },
+    "popup": {
+      "createTitle": "팝업 생성",
+      "editTitle": "팝업 수정",
+      "titleLabel": "제목",
+      "titlePlaceholder": "팝업 제목을 입력하세요",
+      "contentLabel": "내용",
+      "contentPlaceholder": "팝업 내용을 입력하세요",
+      "imageUrlLabel": "이미지 URL (선택)",
+      "imageUrlPlaceholder": "https://example.com/popup.jpg",
+      "startDateLabel": "시작일",
+      "endDateLabel": "종료일",
+      "submitCreateButton": "팝업 생성",
+      "submitEditButton": "팝업 수정",
+      "validation": {
+        "titleRequired": "팝업 제목을 입력해주세요.",
+        "contentRequired": "팝업 내용을 입력해주세요.",
+        "startDateRequired": "시작일을 선택해주세요.",
+        "endDateRequired": "종료일을 선택해주세요."
+      }
+    }
+  }
+}
