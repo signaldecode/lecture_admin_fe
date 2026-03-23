@@ -19,7 +19,7 @@ export default async function NoticeEditPage({ params }: NoticeEditPageProps) {
 
   return (
     <div className="mx-auto max-w-3xl space-y-4">
-      <h1 className="text-2xl font-bold">{texts.editTitle} (ID: {id})</h1>
+      <h1 className="text-2xl font-bold">{texts.editTitle}</h1>
       <NoticeForm />
     </div>
   );
