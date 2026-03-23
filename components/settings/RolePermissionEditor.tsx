@@ -24,10 +24,17 @@ const permissions = (sidebarData.menu as { key: string; label: string }[]).map((
   label: item.label,
 }));
 
+function buildRoleMatrix(permKeys: string[], enabledKeys: string[]): Record<string, boolean> {
+  const enabledSet = new Set(enabledKeys);
+  return Object.fromEntries(permKeys.map((k) => [k, enabledSet.has(k)]));
+}
+
+const permissionKeys = permissions.map((p) => p.key);
+
 const defaultMatrix: Record<AdminRole, Record<string, boolean>> = {
-  SUPER_ADMIN: Object.fromEntries(permissions.map((p) => [p.key, true])),
-  INSTRUCTOR: { dashboard: true, courses: true, analytics: true, members: false, orders: false, coupons: false, community: false, support: false, content: false, settings: false },
-  CS_AGENT: { dashboard: true, members: true, support: true, courses: false, orders: false, coupons: false, community: false, content: false, analytics: false, settings: false },
+  SUPER_ADMIN: Object.fromEntries(permissionKeys.map((k) => [k, true])),
+  INSTRUCTOR: buildRoleMatrix(permissionKeys, ['dashboard', 'courses', 'instructor', 'analytics']),
+  CS_AGENT: buildRoleMatrix(permissionKeys, ['dashboard', 'members', 'support']),
 };
 
 export function RolePermissionEditor() {
@@ -67,12 +74,14 @@ export function RolePermissionEditor() {
               <TableRow key={perm.key}>
                 <TableCell>{perm.label}</TableCell>
                 {roles.map((role) => (
-                  <TableCell key={role.key} className="text-center">
-                    <Checkbox
-                      checked={matrix[role.key][perm.key]}
-                      onCheckedChange={() => togglePermission(role.key, perm.key)}
-                      disabled={role.key === 'SUPER_ADMIN'}
-                    />
+                  <TableCell key={role.key}>
+                    <div className="flex justify-center">
+                      <Checkbox
+                        checked={matrix[role.key][perm.key]}
+                        onCheckedChange={() => togglePermission(role.key, perm.key)}
+                        disabled={role.key === 'SUPER_ADMIN'}
+                      />
+                    </div>
                   </TableCell>
                 ))}
               </TableRow>

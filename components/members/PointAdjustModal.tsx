@@ -73,6 +73,7 @@ export function PointAdjustModal({
             <Label htmlFor="point-reason">{texts.reasonLabel}</Label>
             <Textarea
               id="point-reason"
+              className="resize-none"
               placeholder={texts.reasonPlaceholder}
               value={reason}
               onChange={(e) => setReason(e.target.value)}

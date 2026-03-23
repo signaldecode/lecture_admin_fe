@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { ImageUploadField } from '@/components/composed/ImageUploadField';
 import type { Popup } from '@/types';
 import uiData from '@/data/uiData.json';
 
@@ -36,6 +37,8 @@ export function PopupForm({ popup, mode }: PopupFormProps) {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<PopupFormValues>({
     resolver: zodResolver(popupFormSchema),
@@ -93,11 +96,10 @@ export function PopupForm({ popup, mode }: PopupFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="popup-image-url">{popupTexts.imageUrlLabel}</Label>
-            <Input
-              id="popup-image-url"
-              placeholder={popupTexts.imageUrlPlaceholder}
-              {...register('imageUrl')}
+            <Label>{popupTexts.imageUrlLabel}</Label>
+            <ImageUploadField
+              value={watch('imageUrl')}
+              onChange={(url) => setValue('imageUrl', url)}
             />
           </div>
 

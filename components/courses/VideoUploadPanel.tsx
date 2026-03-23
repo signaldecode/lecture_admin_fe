@@ -4,7 +4,26 @@ import { useCallback, useRef, useState } from 'react';
 import { FileUploadZone } from '@/components/composed/FileUploadZone';
 import { UploadProgress } from '@/components/composed/UploadProgress';
 import { VideoPreview } from '@/components/composed/VideoPreview';
+import uiData from '@/data/uiData.json';
 import type { UploadStatus } from '@/types';
+
+const uploadTexts = uiData.courses.upload;
+
+const VIDEO_UPLOAD_CONFIG = {
+  accept: 'video/mp4,video/webm,video/quicktime',
+  maxSizeBytes: 2 * 1024 * 1024 * 1024,
+  allowedExtensions: ['mp4', 'webm', 'mov'],
+  allowedMimeTypes: ['video/mp4', 'video/webm', 'video/quicktime'],
+  texts: {
+    dropzoneText: uploadTexts.dropzoneText,
+    dropzoneActiveText: uploadTexts.dropzoneActiveText,
+    acceptedFormats: uploadTexts.acceptedFormats,
+    maxFileSize: uploadTexts.maxFileSize,
+    fileSizeError: uploadTexts.fileSizeError,
+    fileTypeError: uploadTexts.fileTypeError,
+  },
+  ariaLabel: uploadTexts.videoAriaLabel,
+} as const;
 
 interface VideoUploadPanelProps {
   videoUrl?: string;
@@ -188,7 +207,16 @@ export function VideoUploadPanel({
   // 초기 상태: 드래그앤드롭 영역
   return (
     <div className="space-y-2">
-      <FileUploadZone onFileDrop={handleFileDrop} onError={handleError} />
+      <FileUploadZone
+        accept={VIDEO_UPLOAD_CONFIG.accept}
+        maxSizeBytes={VIDEO_UPLOAD_CONFIG.maxSizeBytes}
+        allowedExtensions={[...VIDEO_UPLOAD_CONFIG.allowedExtensions]}
+        allowedMimeTypes={[...VIDEO_UPLOAD_CONFIG.allowedMimeTypes]}
+        texts={VIDEO_UPLOAD_CONFIG.texts}
+        ariaLabel={VIDEO_UPLOAD_CONFIG.ariaLabel}
+        onFileDrop={handleFileDrop}
+        onError={handleError}
+      />
       {error && (
         <p className="text-sm text-destructive">{error}</p>
       )}

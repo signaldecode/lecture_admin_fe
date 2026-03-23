@@ -3,13 +3,22 @@
 import { useCallback, useRef, useState } from 'react';
 import { Upload } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import uiData from '@/data/uiData.json';
 
-const texts = uiData.courses.upload;
+interface FileUploadZoneTexts {
+  dropzoneText: string;
+  dropzoneActiveText: string;
+  acceptedFormats: string;
+  maxFileSize: string;
+  fileSizeError: string;
+  fileTypeError: string;
+}
 
 interface FileUploadZoneProps {
-  accept?: string;
-  maxSizeBytes?: number;
+  accept: string;
+  maxSizeBytes: number;
+  allowedExtensions: string[];
+  allowedMimeTypes: string[];
+  texts: FileUploadZoneTexts;
   onFileDrop: (file: File) => void;
   onError?: (message: string) => void;
   disabled?: boolean;
@@ -18,23 +27,24 @@ interface FileUploadZoneProps {
 }
 
 export function FileUploadZone({
-  accept = 'video/mp4,video/webm,video/quicktime',
-  maxSizeBytes = 2 * 1024 * 1024 * 1024,
+  accept,
+  maxSizeBytes,
+  allowedExtensions,
+  allowedMimeTypes,
+  texts,
   onFileDrop,
   onError,
   disabled = false,
   className,
-  ariaLabel = texts.videoAriaLabel,
+  ariaLabel,
 }: FileUploadZoneProps) {
   const [isDragOver, setIsDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const validateFile = useCallback(
     (file: File): string | null => {
-      const validExtensions = ['mp4', 'webm', 'mov'];
-      const validMimeTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
       const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
-      if (!validExtensions.includes(ext) && !validMimeTypes.includes(file.type)) {
+      if (!allowedExtensions.includes(ext) && !allowedMimeTypes.includes(file.type)) {
         return texts.fileTypeError;
       }
       if (file.size > maxSizeBytes) {
@@ -42,7 +52,7 @@ export function FileUploadZone({
       }
       return null;
     },
-    [maxSizeBytes],
+    [maxSizeBytes, allowedExtensions, allowedMimeTypes, texts],
   );
 
   const handleFile = useCallback(

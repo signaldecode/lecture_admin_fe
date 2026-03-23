@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { ImageUploadField } from '@/components/composed/ImageUploadField';
 import type { Banner } from '@/types';
 import uiData from '@/data/uiData.json';
 
@@ -94,11 +95,10 @@ export function BannerForm({ banner, mode }: BannerFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="banner-image-url">{bannerTexts.imageUrlLabel}</Label>
-            <Input
-              id="banner-image-url"
-              placeholder={bannerTexts.imageUrlPlaceholder}
-              {...register('imageUrl')}
+            <Label>{bannerTexts.imageUrlLabel}</Label>
+            <ImageUploadField
+              value={watch('imageUrl')}
+              onChange={(url) => setValue('imageUrl', url, { shouldValidate: true })}
             />
             {errors.imageUrl && (
               <p className="text-sm text-destructive">{errors.imageUrl.message}</p>

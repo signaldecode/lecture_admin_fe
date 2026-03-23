@@ -35,7 +35,18 @@
     "viewAll": "전체 보기",
     "back": "돌아가기",
     "logout": "로그아웃",
-    "profile": "프로필"
+    "profile": "프로필",
+    "imageUpload": {
+      "dropzoneText": "이미지를 드래그하여 놓거나 클릭하여 선택하세요",
+      "dropzoneActiveText": "여기에 이미지를 놓으세요",
+      "acceptedFormats": "JPG, PNG, WebP, GIF",
+      "maxFileSize": "최대 5MB",
+      "fileSizeError": "파일 크기가 5MB를 초과합니다.",
+      "fileTypeError": "지원하지 않는 이미지 형식입니다. JPG, PNG, WebP, GIF만 가능합니다.",
+      "changeImage": "이미지 변경",
+      "removeImage": "이미지 삭제",
+      "ariaLabel": "이미지 업로드 영역"
+    }
   },
   "forbidden": {
     "title": "접근 권한 없음",
@@ -467,7 +478,7 @@
       "description": "님의 포인트를 조정합니다.",
       "currentPrefix": "현재: ",
       "amountLabel": "조정 포인트",
-      "amountPlaceholder": "양수: 지급 / 음수: 차감",
+      "amountPlaceholder": "+ (포인트 지급) / - (포인트 차감)",
       "reasonLabel": "사유",
       "reasonPlaceholder": "포인트 조정 사유를 입력하세요",
       "adjustButton": "조정"
@@ -754,7 +765,11 @@
         "startDateRequired": "시작일을 선택해주세요.",
         "endDateRequired": "종료일을 선택해주세요.",
         "orderRequired": "순서를 입력해주세요."
-      }
+      },
+      "createButton": "배너 추가",
+      "deleteConfirmTitle": "배너 삭제",
+      "deleteConfirmDescription": "이 배너를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "columns_actions": "관리"
     },
     "terms": {
       "pageTitle": "약관 관리",
@@ -795,7 +810,11 @@
         "contentRequired": "팝업 내용을 입력해주세요.",
         "startDateRequired": "시작일을 선택해주세요.",
         "endDateRequired": "종료일을 선택해주세요."
-      }
+      },
+      "createButton": "팝업 추가",
+      "deleteConfirmTitle": "팝업 삭제",
+      "deleteConfirmDescription": "이 팝업을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "columns_actions": "관리"
     }
   }
 }
