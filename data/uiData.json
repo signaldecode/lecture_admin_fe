@@ -536,6 +536,46 @@
       "categoryRequired": "카테고리를 선택해주세요.",
       "difficultyRequired": "난이도를 선택해주세요.",
       "priceInvalid": "가격은 0 이상의 숫자여야 합니다."
+    },
+    "tabs": {
+      "info": "기본정보",
+      "curriculum": "커리큘럼"
+    },
+    "curriculum": {
+      "title": "커리큘럼 편집",
+      "addSection": "섹션 추가",
+      "sectionPlaceholder": "섹션 제목을 입력하세요",
+      "addLesson": "레슨 추가",
+      "lessonPlaceholder": "레슨 제목을 입력하세요",
+      "deleteSection": "섹션 삭제",
+      "deleteLesson": "레슨 삭제",
+      "deleteSectionConfirm": "이 섹션과 포함된 모든 레슨을 삭제하시겠습니까?",
+      "deleteLessonConfirm": "이 레슨을 삭제하시겠습니까?",
+      "freeLabel": "무료 공개",
+      "durationLabel": "영상 시간",
+      "noSections": "아직 섹션이 없습니다. 섹션을 추가하여 커리큘럼을 구성하세요.",
+      "noLessons": "레슨이 없습니다. 레슨을 추가하세요.",
+      "dragToReorder": "드래그하여 순서 변경",
+      "sectionLabel": "섹션",
+      "lessonLabel": "레슨",
+      "lessonCountUnit": "개 레슨"
+    },
+    "upload": {
+      "dropzoneText": "파일을 드래그하여 놓거나 클릭하여 선택하세요",
+      "dropzoneActiveText": "여기에 파일을 놓으세요",
+      "acceptedFormats": "MP4, WebM, MOV",
+      "maxFileSize": "최대 2GB",
+      "uploading": "업로드 중...",
+      "uploadComplete": "업로드 완료",
+      "uploadError": "업로드 실패",
+      "cancelUpload": "업로드 취소",
+      "reupload": "재업로드",
+      "removeFile": "파일 삭제",
+      "fileSizeError": "파일 크기가 2GB를 초과합니다.",
+      "fileTypeError": "지원하지 않는 파일 형식입니다. MP4, WebM, MOV만 가능합니다.",
+      "retryUpload": "재시도",
+      "videoAriaLabel": "동영상 업로드 영역",
+      "progressAriaLabel": "업로드 진행률"
     }
   },
   "support": {

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import { CourseDetailCard } from '@/components/courses/CourseDetailCard';
-import { CourseDetailActions } from '@/components/courses/CourseDetailActions';
+import { CourseDetailTabs } from '@/components/courses/CourseDetailTabs';
 import { getServerRole } from '@/lib/auth';
 import uiData from '@/data/uiData.json';
 import type { Course } from '@/types';
@@ -35,8 +34,7 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
   return (
     <div className="mx-auto max-w-3xl space-y-4">
       <h1 className="text-2xl font-bold">{texts.pageTitle}</h1>
-      <CourseDetailCard course={course} />
-      <CourseDetailActions course={course} role={role ?? 'INSTRUCTOR'} />
+      <CourseDetailTabs course={course} role={role ?? 'INSTRUCTOR'} />
     </div>
   );
 }

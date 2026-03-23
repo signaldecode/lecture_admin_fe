@@ -107,6 +107,29 @@ export interface Lesson {
   isFree: boolean;
 }
 
+// ─── Upload Types ───
+export type UploadStatus = 'idle' | 'uploading' | 'completed' | 'error';
+
+export interface UploadFileInfo {
+  id: string;
+  file: File;
+  name: string;
+  size: number;
+  type: string;
+  progress: number;
+  status: UploadStatus;
+  errorMessage?: string;
+  previewUrl?: string;
+  uploadedUrl?: string;
+}
+
+export interface VideoMeta {
+  duration: number;
+  width: number;
+  height: number;
+  thumbnailUrl?: string;
+}
+
 // ─── Dashboard Types ───
 export interface DashboardSummary {
   totalMembers: number;
