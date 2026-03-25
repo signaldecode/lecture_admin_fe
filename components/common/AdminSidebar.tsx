@@ -1,7 +1,14 @@
 'use client';
 
+import { useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ChevronRight } from 'lucide-react';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import {
   Sidebar,
   SidebarContent,
@@ -32,13 +39,52 @@ function isActive(pathname: string, itemPath: string): boolean {
   return pathname === itemPath || pathname.startsWith(itemPath + '/');
 }
 
+function getInitialOpenKeys(
+  menu: SidebarMenuItemType[],
+  role: AdminRole | undefined,
+  pathname: string,
+): Set<string> {
+  const keys = new Set<string>();
+  for (const item of menu) {
+    if (!item.children?.length) continue;
+    if (!role || !(item.roles as AdminRole[]).includes(role)) continue;
+    const hasActive = item.children.some(
+      (child) =>
+        role &&
+        (child.roles as AdminRole[]).includes(role) &&
+        isActive(pathname, child.path),
+    );
+    if (hasActive) keys.add(item.key);
+  }
+  return keys;
+}
+
 export function AdminSidebar() {
   const pathname = usePathname();
   const role = useAuthStore((state) => state.user?.role);
 
-  const filteredMenu = (sidebarData.menu as SidebarMenuItemType[]).filter(
-    (item) => role && (item.roles as AdminRole[]).includes(role),
+  const menu = sidebarData.menu as SidebarMenuItemType[];
+
+  const filteredMenu = useMemo(
+    () => menu.filter((item) => role && (item.roles as AdminRole[]).includes(role)),
+    [menu, role],
   );
+
+  const [openKeys, setOpenKeys] = useState<Set<string>>(() =>
+    getInitialOpenKeys(menu, role, pathname),
+  );
+
+  const toggleKey = useCallback((key: string) => {
+    setOpenKeys((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  }, []);
 
   return (
     <Sidebar>
@@ -62,31 +108,43 @@ export function AdminSidebar() {
                     (child) =>
                       role && (child.roles as AdminRole[]).includes(role),
                   );
-
                   return (
                     <SidebarMenuItem key={item.key}>
-                      <SidebarMenuButton
-                        tooltip={item.label}
-                        data-active={active}
+                      <Collapsible
+                        open={openKeys.has(item.key)}
+                        onOpenChange={() => toggleKey(item.key)}
+                        className="group/collapsible"
                       >
-                        <Icon />
-                        <span>{item.label}</span>
-                      </SidebarMenuButton>
-                      <SidebarMenuSub>
-                        {filteredChildren.map((child) => {
-                          const childActive = isActive(pathname, child.path);
-                          return (
-                            <SidebarMenuSubItem key={child.key}>
-                              <SidebarMenuSubButton
-                                data-active={childActive}
-                                render={<Link href={child.path} />}
-                              >
-                                <span>{child.label}</span>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          );
-                        })}
-                      </SidebarMenuSub>
+                        <CollapsibleTrigger
+                          render={
+                            <SidebarMenuButton
+                              tooltip={item.label}
+                              data-active={active}
+                            />
+                          }
+                        >
+                          <Icon />
+                          <span>{item.label}</span>
+                          <ChevronRight className="ml-auto transition-transform duration-200 group-data-[open]/collapsible:rotate-90" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <SidebarMenuSub>
+                            {filteredChildren.map((child) => {
+                              const childActive = isActive(pathname, child.path);
+                              return (
+                                <SidebarMenuSubItem key={child.key}>
+                                  <SidebarMenuSubButton
+                                    data-active={childActive}
+                                    render={<Link href={child.path} />}
+                                  >
+                                    <span>{child.label}</span>
+                                  </SidebarMenuSubButton>
+                                </SidebarMenuSubItem>
+                              );
+                            })}
+                          </SidebarMenuSub>
+                        </CollapsibleContent>
+                      </Collapsible>
                     </SidebarMenuItem>
                   );
                 }
